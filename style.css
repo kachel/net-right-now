@@ -1,0 +1,129 @@
+/* 1. Use a more-intuitive box-sizing model */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* 2. Remove default margin */
+*:not(dialog) {
+  margin: 0;
+}
+
+/* 3. Enable keyword animations */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    interpolate-size: allow-keywords;
+  }
+}
+
+body {
+  /* 4. Add accessible line-height */
+  line-height: 1.5;
+  /* 5. Improve text rendering */
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 6. Improve media defaults */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* 7. Inherit fonts for form controls */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* 8. Avoid text overflows */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+/* 9. Improve line wrapping */
+p {
+  text-wrap: pretty;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance;
+}
+
+/*
+  10. Create a root stacking context
+*/
+#root,
+#__next {
+  isolation: isolate;
+}
+
+/* styling begin */
+
+body {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  padding: 2rem 4rem;
+  margin: 0 auto;
+  background-color: #212121;
+  color: rgb(254, 218, 172);
+  font-size: 18px;
+}
+
+a {
+  color: orange;
+}
+.title {
+  font-family: "Audiowide", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.net {
+  background-color: #313131;
+  border: rgb(255, 245, 219) solid 2px;
+  border-radius: 0.5rem;
+  width: min(1200px, 98%);
+
+  @media (min-width: 768px) {
+    padding: 1rem 2rem;
+    margin-block: 2rem;
+    margin-inline: 4rem;
+  }
+}
+
+.net-container {
+  display: grid;
+  align-items: center;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.day,
+.time-cst,
+.occurance,
+.frequency,
+.offset,
+.pl-tone,
+.location,
+.sponsor,
+.website,
+.type,
+.internet-link,
+.siteinfo {
+  display: flex;
+}
