@@ -78,8 +78,6 @@ h6 {
 
 body {
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-  padding: 2rem 4rem;
-  margin: 0 auto;
   background-color: #212121;
   color: rgb(254, 218, 172);
   font-size: 18px;
@@ -94,23 +92,30 @@ a {
   font-style: normal;
 }
 
+.nets-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(900px, 1fr));
+  gap: 1rem;
+  align-items: center;
+  padding: 2rem;
+}
+
 .net {
   background-color: #313131;
   border: rgb(255, 245, 219) solid 2px;
-  border-radius: 0.5rem;
+  border-radius: 0.25rem;
   width: min(1200px, 98%);
+  padding: 0.5rem 1rem;
 
   @media (min-width: 768px) {
     padding: 1rem 2rem;
-    margin-block: 2rem;
-    margin-inline: 4rem;
   }
 }
 
 .net-container {
   display: grid;
-  align-items: center;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 0.25rem;
 }
 
 .day,
@@ -125,5 +130,21 @@ a {
 .type,
 .internet-link,
 .siteinfo {
+  align-self: center;
   display: flex;
+}
+
+footer {
+  width: 100%;
+  background-color: orange;
+  color: rgb(46, 40, 31);
+  padding: 20px 0;
+  text-align: center;
+  a {
+    color: rgb(127, 83, 0);
+  }
+}
+
+header {
+  padding: 2rem;
 }
