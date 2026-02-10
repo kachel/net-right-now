@@ -1,4 +1,3 @@
-// ...existing code...
 (async function renderNetsFromJson() {
   try {
     const res = await fetch("./chicago-area-nets.json");
@@ -27,7 +26,7 @@
       inner.className = "net-container";
 
       Object.entries(item).forEach(([key, val]) => {
-        if (key === "ID" || key === "Name Of Net") return; // skip if desired
+        if (key === "ID" || key === "Name Of Net") return;
 
         const fieldClass = key
           .toLowerCase()

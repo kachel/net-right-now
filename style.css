@@ -78,34 +78,36 @@ h6 {
 
 body {
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-  background-color: #212121;
+  background-color: #1e1e1e;
   color: rgb(254, 218, 172);
   font-size: 18px;
 }
 
 a {
-  color: orange;
+  color: rgb(192, 125, 1);
 }
+
 .title {
   font-family: "Audiowide", sans-serif;
   font-weight: 500;
   font-style: normal;
+  color: orange;
 }
 
 .nets-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(900px, 1fr));
-  gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  padding: 2rem;
 }
 
 .net {
   background-color: #313131;
-  border: rgb(255, 245, 219) solid 2px;
+  border: rgb(233, 224, 202) outset 2px;
   border-radius: 0.25rem;
   width: min(1200px, 98%);
   padding: 0.5rem 1rem;
+  margin: 0.5rem 1rem;
 
   @media (min-width: 768px) {
     padding: 1rem 2rem;
@@ -147,4 +149,8 @@ footer {
 
 header {
   padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
