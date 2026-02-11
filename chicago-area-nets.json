@@ -11,6 +11,8 @@
     "Offset": "-",
     "PL Tone": "110.9",
     "Internet Link": "Echolink: 218858",
+    "Mode": "FM, Internet",
+    "Band": "1.25m",
     "Site/Info": "https://www.wm9w.org/"
   },
   {
@@ -25,6 +27,8 @@
     "Offset": "-",
     "PL Tone": "107.2",
     "Internet Link": "",
+    "Mode": "FM",
+    "Band": "2m",
     "Site/Info": "https://www.illinoisradioleague.org/"
   },
   {
@@ -39,6 +43,8 @@
     "Offset": "+",
     "PL Tone": "107.2",
     "Internet Link": "Echolink: K9BAR-R",
+    "Mode": "FM, Internet",
+    "Band": "2m",
     "Site/Info": "www.k9bar.org"
   },
   {
@@ -52,8 +58,10 @@
     "Frequency": "443.750",
     "Offset": "+",
     "PL Tone": "114.8",
-    "Internet Link": "Echolink: wa9orc-r",
-    "Site/Info": "Allstar: 555491,http://chicagofmclub.org/"
+    "Internet Link": "Echolink: wa9orc-r, Allstar: 555491",
+    "Mode": "FM, Internet",
+    "Band": "70cm",
+    "Site/Info": "http://chicagofmclub.org/"
   },
   {
     "ID": "5",
@@ -67,6 +75,8 @@
     "Offset": "-",
     "PL Tone": "114.8",
     "Internet Link": "Echolink: W9ANL-R",
+    "Mode": "FM, Internet",
+    "Band": "2m",
     "Site/Info": "https://blogs.anl.gov/amateur-radio/"
   },
   {
@@ -81,6 +91,8 @@
     "Offset": "",
     "PL Tone": "",
     "Internet Link": "",
+    "Mode": "FM, Internet",
+    "Band": "160m",
     "Site/Info": "www.mobileers.com"
   },
   {
@@ -95,6 +107,8 @@
     "Offset": "-",
     "PL Tone": "107.2",
     "Internet Link": "Echolink: K9ONA-R",
+    "Mode": "FM, Internet",
+    "Band": "2m",
     "Site/Info": "https://www.k9ona.com/"
   },
   {
@@ -109,6 +123,8 @@
     "Offset": "-",
     "PL Tone": "107.2",
     "Internet Link": "Echolink: W9DUP-R",
+    "Mode": "FM, Internet",
+    "Band": "2m",
     "Site/Info": "http://www.w9dup.org"
   },
   {
@@ -123,6 +139,8 @@
     "Offset": "+",
     "PL Tone": "171.2",
     "Internet Link": "",
+    "Mode": "FM",
+    "Band": "2m",
     "Site/Info": "http://norarepeater.weebly.com/"
   },
   {
@@ -137,6 +155,8 @@
     "Offset": "",
     "PL Tone": "",
     "Internet Link": "",
+    "Mode": "FM",
+    "Band": "80m",
     "Site/Info": "Net Control: Jim KB9VR"
   },
   {
@@ -151,6 +171,8 @@
     "Offset": "+",
     "PL Tone": "107.2",
     "Internet Link": "",
+    "Mode": "FM",
+    "Band": "2m",
     "Site/Info": ""
   },
   {
@@ -165,6 +187,8 @@
     "Offset": "+",
     "PL Tone": "103.5",
     "Internet Link": "",
+    "Mode": "FM",
+    "Band": "2m",
     "Site/Info": "http://www.Wx9krc.org"
   },
   {
@@ -179,6 +203,8 @@
     "Offset": "-",
     "PL Tone": "114.8",
     "Internet Link": "",
+    "Mode": "FM",
+    "Band": "2m",
     "Site/Info": "https://w9axd.org/"
   },
   {
@@ -193,6 +219,8 @@
     "Offset": "",
     "PL Tone": "Smplx",
     "Internet Link": "",
+    "Mode": "FM",
+    "Band": "2m",
     "Site/Info": ""
   },
   {
@@ -207,6 +235,8 @@
     "Offset": "-",
     "PL Tone": "107.2",
     "Internet Link": "",
+    "Mode": "FM",
+    "Band": "2m",
     "Site/Info": "http://ilyh.org/net/ and https://sararepeater.com/"
   },
   {
@@ -221,7 +251,9 @@
     "Offset": "-",
     "PL Tone": "NO PL",
     "Internet Link": "Allstar: 555490",
-    "Site/Info": "-offset, Input 222.5000"
+    "Mode": "FM, Internet",
+    "Band": "1.25m",
+    "Site/Info": "Input 222.5000"
   },
   {
     "ID": "17",
@@ -235,6 +267,8 @@
     "Offset": "-",
     "PL Tone": "110.9",
     "Internet Link": "Echolink: WM9W-R",
+    "Mode": "FM, Internet",
+    "Band": "1.25m",
     "Site/Info": "https://www.wm9w.org/"
   },
   {
@@ -249,6 +283,8 @@
     "Offset": "-",
     "PL Tone": "110.9",
     "Internet Link": "Echolink: 218858",
+    "Mode": "FM, Internet",
+    "Band": "1.25m",
     "Site/Info": "https://www.wm9w.org/"
   },
   {
@@ -263,7 +299,9 @@
     "Offset": "-",
     "PL Tone": "107.2",
     "Internet Link": "",
-    "Site/Info": "FREQuency's may change"
+    "Mode": "FM",
+    "Band": "2m",
+    "Site/Info": "Frequencies may change"
   },
   {
     "ID": "20",
@@ -277,6 +315,8 @@
     "Offset": "+",
     "PL Tone": "114.8",
     "Internet Link": "",
+    "Mode": "FM",
+    "Band": "70cm",
     "Site/Info": ""
   },
   {
@@ -291,7 +331,9 @@
     "Offset": "+",
     "PL Tone": "114.8",
     "Internet Link": "Echolink: WA9ORC-R Allstar: 555492",
-    "Site/Info": "chicagofmclub.org  Designed for female hams seeking skill-building knowledge, service opportunities, and a space to connect with other licensed female amateur radio enthusiasts."
+    "Mode": "FM",
+    "Band": "70cm",
+    "Site/Info": "chicagofmclub.org"
   },
 
   {
@@ -306,6 +348,8 @@
     "Offset": "+",
     "PL Tone": "110.9",
     "Internet Link": "",
+    "Mode": "FM",
+    "Band": "70cm",
     "Site/Info": ""
   },
   {
@@ -320,6 +364,8 @@
     "Offset": "-",
     "PL Tone": "107.2",
     "Internet Link": "",
+    "Mode": "FM",
+    "Band": "2m",
     "Site/Info": "http://w9src.org/"
   },
   {
@@ -334,6 +380,8 @@
     "Offset": "-",
     "PL Tone": "123.0",
     "Internet Link": "",
+    "Mode": "FM",
+    "Band": "2m",
     "Site/Info": ""
   },
   {
@@ -348,6 +396,8 @@
     "Offset": "+",
     "PL Tone": "100.0",
     "Internet Link": "",
+    "Mode": "FM",
+    "Band": "2m",
     "Site/Info": ""
   },
   {
@@ -362,6 +412,8 @@
     "Offset": "+",
     "PL Tone": "107.2",
     "Internet Link": "",
+    "Mode": "FM",
+    "Band": "2m",
     "Site/Info": "http://www.chicagolandskywarn.org"
   },
   {
@@ -376,6 +428,8 @@
     "Offset": "-",
     "PL Tone": "114.8",
     "Internet Link": "",
+    "Mode": "FM",
+    "Band": "2m",
     "Site/Info": ""
   },
   {
@@ -404,6 +458,8 @@
     "Offset": "-",
     "PL Tone": "107.2",
     "Internet Link": "",
+    "Mode": "FM",
+    "Band": "2m",
     "Site/Info": "http://www.w9vt.org/"
   },
   {
@@ -418,6 +474,8 @@
     "Offset": "+",
     "PL Tone": "114.8",
     "Internet Link": "",
+    "Mode": "FM",
+    "Band": "2m",
     "Site/Info": "EZ Pal http://w9dup.org"
   },
   {
@@ -432,6 +490,8 @@
     "Offset": "-",
     "PL Tone": "107.2",
     "Internet Link": "",
+    "Mode": "FM",
+    "Band": "2m",
     "Site/Info": ""
   },
   {
@@ -446,6 +506,8 @@
     "Offset": "-",
     "PL Tone": "107.2",
     "Internet Link": "",
+    "Mode": "FM",
+    "Band": "2m",
     "Site/Info": "http://www.w9ccu.org/"
   },
   {
@@ -460,6 +522,8 @@
     "Offset": "-",
     "PL Tone": "107.2",
     "Internet Link": "Echolink: W9DUP-R",
+    "Mode": "FM, Internet",
+    "Band": "2m",
     "Site/Info": "http://www.w9dup.org"
   },
   {
@@ -467,13 +531,15 @@
     "Day": "Sunday",
     "Time CST": "9:00PM",
     "Name Of Net": "Metro Amateur Radio Club Net",
-    "Sponsor": ",Metro ARC",
+    "Sponsor": "Metro ARC",
     "Location": "Lincolnwood, IL",
     "Type": "Club",
     "Frequency": "147.315",
     "Offset": "+",
     "PL Tone": "107.2",
     "Internet Link": "",
+    "Mode": "FM",
+    "Band": "2m",
     "Site/Info": "http://www.metroarc.org/"
   },
   {
@@ -488,6 +554,8 @@
     "Offset": "+",
     "PL Tone": "114.8",
     "Internet Link": "Echolink: WB0VHF-L",
+    "Mode": "FM, Internet",
+    "Band": "2m",
     "Site/Info": "http://www.suhfars.org"
   },
   {
@@ -502,6 +570,8 @@
     "Offset": "-",
     "PL Tone": "110.9",
     "Internet Link": "Allstar: 555490",
+    "Mode": "FM, Internet",
+    "Band": "2m",
     "Site/Info": ""
   },
   {
@@ -516,6 +586,8 @@
     "Offset": "-",
     "PL Tone": "114.8",
     "Internet Link": "",
+    "Mode": "FM",
+    "Band": "2m",
     "Site/Info": "http://w9axd.org/"
   },
   {
@@ -530,6 +602,8 @@
     "Offset": "-",
     "PL Tone": "107.2",
     "Internet Link": "Echolink: K9IIK-R Allstar:27833",
+    "Mode": "FM, Internet",
+    "Band": "2m",
     "Site/Info": ""
   },
   {
@@ -544,6 +618,8 @@
     "Offset": "-",
     "PL Tone": "107.2",
     "Internet Link": "",
+    "Mode": "FM",
+    "Band": "2m",
     "Site/Info": "http://www.csraham.com"
   },
   {
@@ -558,6 +634,8 @@
     "Offset": "",
     "PL Tone": "USB",
     "Internet Link": "",
+    "Mode": "FM",
+    "Band": "10m",
     "Site/Info": "http://www.frrl.org"
   },
   {
@@ -572,6 +650,8 @@
     "Offset": "+",
     "PL Tone": "127.3",
     "Internet Link": "",
+    "Mode": "FM",
+    "Band": "2m",
     "Site/Info": "races.org"
   },
   {
@@ -586,6 +666,8 @@
     "Offset": "-",
     "PL Tone": "91.5",
     "Internet Link": "",
+    "Mode": "FM",
+    "Band": "2m",
     "Site/Info": "http://mcraces.org/"
   },
   {
@@ -600,6 +682,8 @@
     "Offset": "+",
     "PL Tone": "114.8",
     "Internet Link": "",
+    "Mode": "FM",
+    "Band": "2m",
     "Site/Info": ""
   },
   {
@@ -614,6 +698,8 @@
     "Offset": "-",
     "PL Tone": "107.2",
     "Internet Link": "",
+    "Mode": "FM",
+    "Band": "2m",
     "Site/Info": "http://www.illinoisradioleague.org/irlnets.php"
   },
   {
@@ -628,6 +714,8 @@
     "Offset": "-",
     "PL Tone": "107.2",
     "Internet Link": "EL W9DUP-R",
+    "Mode": "FM, Internet",
+    "Band": "2m",
     "Site/Info": "http://www.w9dup.org"
   },
   {
@@ -642,6 +730,8 @@
     "Offset": "",
     "PL Tone": "Smplx",
     "Internet Link": "",
+    "Mode": "FM",
+    "Band": "2m",
     "Site/Info": "http://yorkradioclub.com/"
   },
   {
@@ -656,6 +746,8 @@
     "Offset": "-",
     "PL Tone": "107.2",
     "Internet Link": "Echolink: W9AZ-R",
+    "Mode": "FM, Internet",
+    "Band": "2m",
     "Site/Info": "http://www.w9az.com/"
   },
   {
@@ -670,6 +762,8 @@
     "Offset": "-",
     "PL Tone": "82.5",
     "Internet Link": "Echolink: WX9WL-R",
+    "Mode": "FM, Internet",
+    "Band": "2m",
     "Site/Info": "https://www.facebook.com/WX9LE/"
   },
   {
@@ -684,6 +778,8 @@
     "Offset": "-",
     "PL Tone": "107.2",
     "Internet Link": "",
+    "Mode": "FM",
+    "Band": "2m",
     "Site/Info": "https://qsl.net/vara/"
   },
   {
@@ -698,6 +794,8 @@
     "Offset": "-",
     "PL Tone": "100.00",
     "Internet Link": "",
+    "Mode": "FM",
+    "Band": "2m",
     "Site/Info": "https://www.karc-club.org"
   },
   {
@@ -712,6 +810,8 @@
     "Offset": "",
     "PL Tone": "USB",
     "Internet Link": "",
+    "Mode": "FM",
+    "Band": "6m",
     "Site/Info": "http://yorkradioclub.com/"
   },
   {
@@ -726,6 +826,8 @@
     "Offset": "+",
     "PL Tone": "107.2",
     "Internet Link": "",
+    "Mode": "FM",
+    "Band": "2m",
     "Site/Info": "http://www.metroarc.org/info"
   },
   {
@@ -740,6 +842,8 @@
     "Offset": "-",
     "PL Tone": "107.2",
     "Internet Link": "",
+    "Mode": "FM",
+    "Band": "2m",
     "Site/Info": "http://www.hamfesters.org  http://www.w9aa.org"
   },
   {
@@ -754,6 +858,8 @@
     "Offset": "+",
     "PL Tone": "136.5",
     "Internet Link": "",
+    "Mode": "FM",
+    "Band": "2m",
     "Site/Info": "http://nidxa.org/index.htm"
   },
   {
@@ -767,6 +873,8 @@
     "Frequency": "223.780",
     "Offset": "-",
     "PL Tone": "100.0",
+    "Mode": "FM",
+    "Band": "1.25m",
     "Internet Link": "Dstar: REF7970LAX",
     "Site/Info": ""
   },
@@ -782,6 +890,8 @@
     "Offset": "-",
     "PL Tone": "107.2",
     "Internet Link": "",
+    "Mode": "FM",
+    "Band": "2m",
     "Site/Info": ""
   },
   {
@@ -796,7 +906,9 @@
     "Offset": "+",
     "PL Tone": "029 DSQ",
     "Internet Link": "",
-    "Site/Info": "C4FM Mode - http://www.w9src.org"
+    "Mode": "Internet",
+    "Band": "70cm",
+    "Site/Info": "http://www.w9src.org"
   },
   {
     "ID": "58",
@@ -810,6 +922,8 @@
     "Offset": "-",
     "PL Tone": "114.8",
     "Internet Link": "",
+    "Mode": "FM",
+    "Band": "2m",
     "Site/Info": ""
   },
   {
@@ -824,6 +938,8 @@
     "Offset": "+",
     "PL Tone": "114.8",
     "Internet Link": "",
+    "Mode": "FM",
+    "Band": "2m",
     "Site/Info": "https://wcars.radio/ join the discord if they want to pre-load a question for the next upcoming net"
   },
   {
@@ -838,6 +954,8 @@
     "Offset": "",
     "PL Tone": "USB",
     "Internet Link": "Echolink: K9CCL-L",
+    "Mode": "FM",
+    "Band": "70cm",
     "Site/Info": "https://sites.google.com/site/k9cclradio/"
   },
   {
@@ -852,6 +970,8 @@
     "Offset": "+",
     "PL Tone": "114.8",
     "Internet Link": "IR: 9050",
+    "Mode": "FM",
+    "Band": "70cm",
     "Site/Info": "http://www.eastcoastreflector.com/"
   },
   {
@@ -866,6 +986,8 @@
     "Offset": "-",
     "PL Tone": "107.2",
     "Internet Link": "Echolink: K9IIK-R Allstar:27833",
+    "Mode": "FM, Internet",
+    "Band": "2m",
     "Site/Info": ""
   },
   {
@@ -880,6 +1002,8 @@
     "Offset": "+",
     "PL Tone": "103.5",
     "Internet Link": "",
+    "Mode": "FM",
+    "Band": "2m",
     "Site/Info": "http://www.frrl.org"
   },
   {
@@ -894,6 +1018,8 @@
     "Offset": "-",
     "PL Tone": "107.2",
     "Internet Link": "Echolink: W9DUP-R",
+    "Mode": "FM, Internet",
+    "Band": "2m",
     "Site/Info": "http://www.dupageares.org/dupagecountyemcommnet.html"
   },
   {
@@ -908,6 +1034,8 @@
     "Offset": "-",
     "PL Tone": "107.2",
     "Internet Link": "",
+    "Mode": "FM",
+    "Band": "2m",
     "Site/Info": "http://www.w9ccu.org/"
   },
   {
@@ -922,6 +1050,8 @@
     "Offset": "",
     "PL Tone": "USB",
     "Internet Link": "",
+    "Mode": "FM",
+    "Band": "6m",
     "Site/Info": ""
   },
   {
@@ -936,6 +1066,8 @@
     "Offset": "+",
     "PL Tone": "146.2",
     "Internet Link": "",
+    "Mode": "FM",
+    "Band": "2m",
     "Site/Info": ""
   },
   {
@@ -950,6 +1082,8 @@
     "Offset": "-",
     "PL Tone": "107.2",
     "Internet Link": "Echolink: KD9YDD-R Allstar: 555492",
+    "Mode": "FM, Internet",
+    "Band": "2m",
     "Site/Info": "http://chicagofmclub.org/"
   },
   {
@@ -964,6 +1098,8 @@
     "Offset": "-",
     "PL Tone": "107.2",
     "Internet Link": "",
+    "Mode": "FM",
+    "Band": "2m",
     "Site/Info": "http://www.k9ona.com"
   },
   {
@@ -978,6 +1114,8 @@
     "Offset": "-",
     "PL Tone": "103.5",
     "Internet Link": "",
+    "Mode": "FM",
+    "Band": "2m",
     "Site/Info": "http://www.kcoem.org/Pages/Volunteer-Program/Amateur-Radio.aspx  http://kanecountyares.org/nets"
   },
   {
@@ -992,6 +1130,8 @@
     "Offset": "-",
     "PL Tone": "107.2",
     "Internet Link": "Echolink: K9IIK-R Allstar: 27833",
+    "Mode": "FM, Internet",
+    "Band": "2m",
     "Site/Info": "https://www.n9rjv.org/"
   },
   {
@@ -1006,6 +1146,8 @@
     "Offset": "",
     "PL Tone": "USB",
     "Internet Link": "",
+    "Mode": "FM",
+    "Band": "6m",
     "Site/Info": "http://www.mcwa.org"
   },
   {
@@ -1020,6 +1162,8 @@
     "Offset": "+",
     "PL Tone": "114.8",
     "Internet Link": "",
+    "Mode": "FM",
+    "Band": "2m",
     "Site/Info": ""
   },
   {
@@ -1034,6 +1178,8 @@
     "Offset": "-",
     "PL Tone": "107.2",
     "Internet Link": "",
+    "Mode": "FM",
+    "Band": "2m",
     "Site/Info": "http://w9src.org/"
   },
   {
@@ -1048,7 +1194,9 @@
     "Offset": "-",
     "PL Tone": "110.9",
     "Internet Link": "Allstar: 555490",
-    "Site/Info": "http://www.chicagofmclub.org/ There is no net on the 4th Wednesday of the Month (CFMC Club Meeting)"
+    "Mode": "FM, Internet",
+    "Band": "1.25m",
+    "Site/Info": "http://www.chicagofmclub.org"
   },
   {
     "ID": "76",
@@ -1062,6 +1210,8 @@
     "Offset": "",
     "PL Tone": "AM",
     "Internet Link": "",
+    "Mode": "FM",
+    "Band": "6m",
     "Site/Info": "http://www.w9dup.org/"
   },
   {
@@ -1076,6 +1226,8 @@
     "Offset": "+",
     "PL Tone": "114.8",
     "Internet Link": "Echolink: K9LOT-1",
+    "Mode": "FM, Internet",
+    "Band": "70cm",
     "Site/Info": "http://wcares.weebly.com/"
   },
   {
@@ -1090,6 +1242,8 @@
     "Offset": "-",
     "PL Tone": "107.2",
     "Internet Link": "",
+    "Mode": "FM",
+    "Band": "2m",
     "Site/Info": "http://www.illinoisradioleague.org/irlnets.php"
   },
   {
@@ -1104,7 +1258,9 @@
     "Offset": "+",
     "PL Tone": "103.5",
     "Internet Link": "",
-    "Site/Info": "Exception of the fourth Wednesday (meeting night). http://kendallilares.home.comcast.net/~kendallilares/"
+    "Mode": "FM",
+    "Band": "2m",
+    "Site/Info": "http://kendallilares.home.comcast.net/~kendallilares/"
   },
   {
     "ID": "80",
@@ -1118,6 +1274,8 @@
     "Offset": "-",
     "PL Tone": "107.2",
     "Internet Link": "",
+    "Mode": "FM",
+    "Band": "2m",
     "Site/Info": "http://www.w9vt.org"
   },
   {
@@ -1132,7 +1290,9 @@
     "Offset": "+",
     "PL Tone": "107.2",
     "Internet Link": "",
-    "Site/Info": "Echolink is on WB9RFQ repeater, unknown reason. http://www.w9ypc.org"
+    "Mode": "FM",
+    "Band": "2m",
+    "Site/Info": "http://www.w9ypc.org"
   },
   {
     "ID": "82",
@@ -1146,6 +1306,8 @@
     "Offset": "+",
     "PL Tone": "114.8",
     "Internet Link": "IR: 4774 Echolink: W9YRC-R Allstar: 27093",
+    "Mode": "FM, Internet",
+    "Band": "2m",
     "Site/Info": "http://yorkradioclub.com/"
   },
   {
@@ -1160,6 +1322,8 @@
     "Offset": "-",
     "PL Tone": "107.2",
     "Internet Link": "",
+    "Mode": "FM",
+    "Band": "2m",
     "Site/Info": "http://www.qsl.net/wafar"
   },
   {
@@ -1174,6 +1338,8 @@
     "Offset": "+",
     "PL Tone": "107.2",
     "Internet Link": "",
+    "Mode": "FM",
+    "Band": "2m",
     "Site/Info": "http://norarepeater.weebly.com/"
   },
   {
@@ -1188,6 +1354,8 @@
     "Offset": "-",
     "PL Tone": "110.9",
     "Internet Link": "",
+    "Mode": "FM",
+    "Band": "2m",
     "Site/Info": "http://k9bar.org/"
   },
   {
@@ -1202,6 +1370,8 @@
     "Offset": "Smplx",
     "PL Tone": "AM",
     "Internet Link": "",
+    "Mode": "FM",
+    "Band": "2m",
     "Site/Info": "http://www.w9dup.org/"
   },
   {
@@ -1216,6 +1386,8 @@
     "Offset": "+",
     "PL Tone": "136.5",
     "Internet Link": "",
+    "Mode": "FM",
+    "Band": "2m",
     "Site/Info": "http://www.mpdes.org"
   },
   {
@@ -1230,6 +1402,8 @@
     "Offset": "+",
     "PL Tone": "107.2",
     "Internet Link": "",
+    "Mode": "FM",
+    "Band": "2m",
     "Site/Info": "http://www.metroarc.org/"
   },
   {
@@ -1244,6 +1418,8 @@
     "Offset": "-",
     "PL Tone": "107.2",
     "Internet Link": "",
+    "Mode": "FM",
+    "Band": "2m",
     "Site/Info": "https://sararepeater.com/"
   },
   {
@@ -1258,7 +1434,9 @@
     "Offset": "",
     "PL Tone": "USB",
     "Internet Link": "",
-    "Site/Info": "javelina swot net"
+    "Mode": "FM",
+    "Band": "2m",
+    "Site/Info": "https://www.swotrc.net/TheSWOTRCHP.aspx"
   },
   {
     "ID": "91",
@@ -1272,6 +1450,8 @@
     "Offset": "-",
     "PL Tone": "107.2",
     "Internet Link": "Echolink: W9DUP-R",
+    "Mode": "FM, Internet",
+    "Band": "2m",
     "Site/Info": ""
   },
   {
@@ -1286,6 +1466,8 @@
     "Offset": "-",
     "PL Tone": "107.2",
     "Internet Link": "",
+    "Mode": "FM",
+    "Band": "2m",
     "Site/Info": "https://wcars.radio/"
   },
   {
@@ -1300,6 +1482,8 @@
     "Offset": "+",
     "PL Tone": "114.8",
     "Internet Link": "",
+    "Mode": "FM",
+    "Band": "2m",
     "Site/Info": ""
   },
   {
@@ -1314,6 +1498,8 @@
     "Offset": "-",
     "PL Tone": "100.0",
     "Internet Link": "",
+    "Mode": "FM",
+    "Band": "2m",
     "Site/Info": "http://www.karc-club.org"
   },
   {
@@ -1328,6 +1514,8 @@
     "Offset": "",
     "PL Tone": "USB",
     "Internet Link": "Echolink: K9CCL-L",
+    "Mode": "FM, Internet",
+    "Band": "2m",
     "Site/Info": "https://sites.google.com/site/k9cclradio/"
   },
   {
@@ -1342,6 +1530,8 @@
     "Offset": "+",
     "PL Tone": "107.2",
     "Internet Link": "Echolink: K9BAR-R",
+    "Mode": "FM, Internet",
+    "Band": "2m",
     "Site/Info": "http://k9bar.org/"
   },
   {
@@ -1356,6 +1546,8 @@
     "Offset": "-",
     "PL Tone": "107.2",
     "Internet Link": "Echolink: K9IIK-R Allstar:27833",
+    "Mode": "FM, Internet",
+    "Band": "2m",
     "Site/Info": "http://www.n9rjv.org/"
   },
   {
@@ -1370,7 +1562,9 @@
     "Offset": "-",
     "PL Tone": "107.2",
     "Internet Link": "Echolink: KD9YDD-R Allstar: 555492",
-    "Site/Info": "http://chicagofmclub.org/ For Hams helping Hams with tech issues, knowledge and experience. Operators with tech issues can call in and get help."
+    "Mode": "FM, Internet",
+    "Band": "2m",
+    "Site/Info": "http://chicagofmclub.org/"
   },
   {
     "ID": "99",
@@ -1384,7 +1578,9 @@
     "Offset": "+",
     "PL Tone": "114.8",
     "Internet Link": "",
-    "Site/Info": "races.org"
+    "Mode": "FM",
+    "Band": "2m",
+    "Site/Info": "www.races.org"
   },
   {
     "ID": "100",
@@ -1398,6 +1594,8 @@
     "Offset": "+",
     "PL Tone": "114.8",
     "Internet Link": "IR: 4206",
+    "Mode": "FM",
+    "Band": "70cm",
     "Site/Info": "http://www.ns9rc.org/"
   },
   {
@@ -1412,6 +1610,8 @@
     "Offset": "",
     "PL Tone": "",
     "Internet Link": "",
+    "Mode": "FM",
+    "Band": "10m",
     "Site/Info": ""
   },
   {
@@ -1426,6 +1626,8 @@
     "Offset": "+",
     "PL Tone": "114.8",
     "Internet Link": "",
+    "Mode": "FM",
+    "Band": "2m",
     "Site/Info": ""
   },
   {
@@ -1440,7 +1642,9 @@
     "Offset": "+",
     "PL Tone": "107.2",
     "Internet Link": "",
-    "Site/Info": "March thru September after Info Net  -  http://k9bar.org/"
+    "Mode": "FM",
+    "Band": "2m",
+    "Site/Info": "http://k9bar.org/"
   },
   {
     "ID": "104",
@@ -1454,6 +1658,8 @@
     "Offset": "-",
     "PL Tone": "107.2",
     "Internet Link": "Echolink: W9DUP-R",
+    "Mode": "FM, Internet",
+    "Band": "2m",
     "Site/Info": "http://www.swaog.com/"
   },
   {
@@ -1468,6 +1674,8 @@
     "Offset": "-",
     "PL Tone": "110.9",
     "Internet Link": "Echolink: 218858",
+    "Mode": "FM, Internet",
+    "Band": "1.25cm",
     "Site/Info": "https://www.wm9w.org/"
   },
   {
@@ -1482,6 +1690,8 @@
     "Offset": "+",
     "PL Tone": "107.2",
     "Internet Link": "",
+    "Mode": "FM",
+    "Band": "2m",
     "Site/Info": "http://www.qcwa.org/"
   },
   {
@@ -1496,6 +1706,8 @@
     "Offset": "",
     "PL Tone": "CW",
     "Internet Link": "",
+    "Mode": "FM",
+    "Band": "40m",
     "Site/Info": "http://www.csraham.com"
   },
   {
@@ -1510,6 +1722,8 @@
     "Offset": "+",
     "PL Tone": "107.2",
     "Internet Link": "",
+    "Mode": "FM",
+    "Band": "2m",
     "Site/Info": "http://k9bar.org/"
   }
 ]
