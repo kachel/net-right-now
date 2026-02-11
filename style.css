@@ -81,6 +81,7 @@ body {
   background-color: #1e1e1e;
   color: rgb(254, 218, 172);
   font-size: 18px;
+  height: 100vh;
 }
 
 a {
@@ -91,12 +92,18 @@ a {
   font-family: "Audiowide", sans-serif;
   font-weight: 500;
   font-style: normal;
-  color: orange;
 }
 
-.nets-container {
+.nets-container,
+.button-container {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.location-filter-container {
+  display: flex;
   justify-content: center;
   align-items: center;
 }
@@ -131,7 +138,9 @@ a {
 .website,
 .type,
 .internet-link,
-.siteinfo {
+.siteinfo,
+.band,
+.mode {
   align-self: center;
   display: flex;
 }
@@ -158,23 +167,34 @@ header {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 0.5rem;
 }
 
 #next-net {
+  margin: auto;
   padding: 2rem;
-  margin: 2rem 0;
   background-color: orange;
   background-image: linear-gradient(319deg, orange 0%, #ff6801 37%, #f6c324 100%);
   color: black;
   border: black outset 2px;
   border-radius: 0.25em;
+  width: min(1200px, 98%);
 
   h2 {
     color: black;
   }
 }
 
-.next-net-details {
+.next-net-details,
+.next-net-sponsor {
   display: flex;
   font-size: 18px;
+}
+
+fieldset {
+  display: flex;
+
+  div {
+    padding-right: 1.5rem;
+  }
 }

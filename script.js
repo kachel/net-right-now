@@ -10,7 +10,7 @@ function setLocationFilter(filter) {
       btn.classList.add("active");
     }
   });
-  renderNetsFromJson();
+  // Only update the upcoming nets (next-net). Do NOT re-render the all-nets container.
   updateNextNetDisplay();
 }
 
@@ -65,8 +65,8 @@ async function renderNetsFromJson() {
     if (!res.ok) throw new Error(res.statusText);
     let data = await res.json();
 
-    // Apply location filter
-    data = filterNetsByLocation(data);
+    // NOTE: Do NOT apply the locationFilter here — keep the nets-container unfiltered.
+    // data = filterNetsByLocation(data); <-- removed
 
     const container = document.querySelector(".nets-container") || document.getElementById("nets");
     if (!container) return;
