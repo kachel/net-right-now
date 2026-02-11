@@ -138,13 +138,10 @@ a {
 
 footer {
   width: 100%;
-  background-color: orange;
-  color: rgb(46, 40, 31);
+  background-color: rgb(49, 49, 49);
+  color: rgb(255, 153, 0);
   padding: 20px 0;
   text-align: center;
-  a {
-    color: rgb(127, 83, 0);
-  }
 }
 
 header {
@@ -153,4 +150,31 @@ header {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.next-net-card {
+  font-size: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#next-net {
+  padding: 2rem;
+  margin: 2rem 0;
+  background-color: orange;
+  background-image: linear-gradient(319deg, orange 0%, #ff6801 37%, #f6c324 100%);
+  color: black;
+  border: black outset 2px;
+  border-radius: 0.25em;
+
+  h2 {
+    color: black;
+  }
+}
+
+.next-net-details {
+  display: flex;
+  font-size: 18px;
 }

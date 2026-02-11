@@ -17,6 +17,18 @@
       <div class="time-right-now">Current time: <span id="cst-time">loading time...</span></div>
     </header>
 
+    <div class="location-filter">
+      <label>Filter by Location:</label>
+      <button class="location-filter-btn" data-filter="all">All</button>
+      <button class="location-filter-btn" data-filter="chicago">Chicago</button>
+      <button class="location-filter-btn" data-filter="chicagoland">Chicagoland</button>
+    </div>
+
+    <div id="next-net"></div>
+
+    <button id="toggle-nets-btn" class="toggle-nets-btn" aria-pressed="true">Hide All Nets</button>
+
+    <div id="nets" class="nets-container"></div>
     <div class="nets-container"></div>
     <script src="script.js"></script>
     <footer class="title">made with love by KD9KUU</footer>
