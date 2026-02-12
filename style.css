@@ -183,8 +183,12 @@ header {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: start;
   padding: 0.5rem;
+
+  @media (min-width: 768px) {
+    align-items: center;
+  }
 }
 
 #next-net {
