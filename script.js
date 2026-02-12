@@ -102,10 +102,10 @@ async function renderNetsFromJson() {
 
         const label = document.createElement("div");
         label.className = `${fieldClass}-label`;
-        label.textContent = key + ":";
+        label.innerHTML = esc(key) + ':&nbsp;';
 
         const info = document.createElement("div");
-        info.className = `${fieldClass}-info`;
+        info.className = ` ${fieldClass}-info`;
 
         const text = String(val ?? "").trim();
         if (key.toLowerCase().includes("site") || /^https?:\/\//i.test(text)) {
@@ -287,8 +287,8 @@ function createNetCard(net, status, timeInfo = "") {
   <div class="net-name">${net["Name Of Net"]}<span> @ ${net["Time CST"]} CST</span></div>
   <div class="net-sponsor">
     Sponsor: ${net.Sponsor}
-    <span>${net.Location || ""}</span>
   </div>
+  <div>${net.Location || ""}</div>
   <div class="next-net-details">
     <div class="net-frequency">Frequency: ${net.Frequency}&nbsp;</div>
     <div class="net-offset">Offset: ${net.Offset || ""}&nbsp;</div>
