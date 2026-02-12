@@ -192,7 +192,7 @@ header {
   padding: 2rem;
   background-color: var(--accent);
   background-image: linear-gradient(319deg, var(--accent) 0%, #ff6801 37%, #f6c324 100%);
-  color: black;
+  color: #000;
   border: var(--text-1) outset 2px;
   border-radius: 0.25em;
   width: min(1200px, 98%);
