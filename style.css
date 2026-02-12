@@ -74,18 +74,31 @@ h6 {
   isolation: isolate;
 }
 
+:root {
+  --accent: orange;
+  --accent-light: #f6c324;
+  --background-1: #1e1e1e;
+  --background-2: #353535;
+  --text-1: #fedaac;
+  --link: #aa6f00;
+}
+
 /* styling begin */
 
 body {
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-  background-color: #1e1e1e;
-  color: rgb(254, 218, 172);
-  font-size: 18px;
+  background-color: var(--background-1);
+  color: var(--text-1);
   height: 100vh;
 }
 
 a {
-  color: rgb(192, 125, 1);
+  color: var(--link);
+}
+
+h1 {
+  color: var(--accent);
+  font-size: 42px;
 }
 
 .title {
@@ -100,6 +113,7 @@ a {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin: 1rem;
 }
 
 .location-filter-container {
@@ -109,8 +123,8 @@ a {
 }
 
 .net {
-  background-color: #313131;
-  border: rgb(233, 224, 202) outset 2px;
+  background-color: var(--background-2);
+  border: var(--text-1) outset 2px;
   border-radius: 0.25rem;
   width: min(1200px, 98%);
   padding: 0.5rem 1rem;
@@ -119,6 +133,10 @@ a {
   @media (min-width: 768px) {
     padding: 1rem 2rem;
   }
+}
+
+.name {
+  color: var(--accent);
 }
 
 .net-container {
@@ -147,14 +165,14 @@ a {
 
 footer {
   width: 100%;
-  background-color: rgb(49, 49, 49);
-  color: rgb(255, 153, 0);
-  padding: 20px 0;
+  background-color: var(--background-1);
+  color: var(--accent);
+  padding: 2rem 0;
   text-align: center;
 }
 
 header {
-  padding: 2rem;
+  padding: 1rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -162,7 +180,6 @@ header {
 }
 
 .next-net-card {
-  font-size: 24px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -171,14 +188,15 @@ header {
 }
 
 #next-net {
-  margin: auto;
+  margin: 1rem auto;
   padding: 2rem;
-  background-color: orange;
-  background-image: linear-gradient(319deg, orange 0%, #ff6801 37%, #f6c324 100%);
+  background-color: var(--accent);
+  background-image: linear-gradient(319deg, var(--accent) 0%, #ff6801 37%, #f6c324 100%);
   color: black;
-  border: black outset 2px;
+  border: var(--text-1) outset 2px;
   border-radius: 0.25em;
   width: min(1200px, 98%);
+  font-size: 24px;
 
   h2 {
     color: black;
@@ -188,13 +206,22 @@ header {
 .next-net-details,
 .next-net-sponsor {
   display: flex;
-  font-size: 18px;
 }
 
-fieldset {
-  display: flex;
+button {
+  background-color: var(--accent);
+  color: black;
+  border-radius: 0.15rem;
+  border: var(--text-1) outset 2px;
+  font-size: 18px;
+  padding: 0.25rem 0.5rem;
+  margin-inline: 0.25rem;
+}
 
-  div {
-    padding-right: 1.5rem;
-  }
+button:hover {
+  background-color: var(--accent-light);
+}
+
+.time-right-now {
+  text-align: center;
 }

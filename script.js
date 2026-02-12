@@ -250,7 +250,7 @@ async function displayNextNet() {
 
   // Display happening nets
   if (happeningNets.length > 0) {
-    html += `<h3 class="net-status happening">🔴 Happening Now</h3>`;
+    html += `<h3 class="net-status happening title">🔴 Happening Now</h3>`;
     happeningNets.forEach(({ net }) => {
       html += createNetCard(net, "happening");
     });
@@ -258,7 +258,7 @@ async function displayNextNet() {
 
   // Display likely happening nets
   if (likelyHappeningNets.length > 0) {
-    html += `<h3 class="net-status likely">🟡 Likely Happening</h3>`;
+    html += `<h3 class="net-status likely title">🟡 Likely Happening</h3>`;
     likelyHappeningNets.forEach(({ net }) => {
       html += createNetCard(net, "likely");
     });
@@ -266,7 +266,7 @@ async function displayNextNet() {
 
   // Display upcoming nets
   if (upcomingNets.length > 0) {
-    html += `<h3 class="net-status upcoming">🟢 Upcoming</h3>`;
+    html += `<h3 class="net-status upcoming title">🟢 Upcoming</h3>`;
     const { net, minutesUntil } = upcomingNets[0];
     const hours = Math.floor(minutesUntil / 60);
     const minutes = minutesUntil % 60;
@@ -284,18 +284,23 @@ async function displayNextNet() {
 function createNetCard(net, status, timeInfo = "") {
   return `
 <div class="next-net-card ${status}">
-  <div class="net-name">${net["Name Of Net"]}</div>
-  <div class="net-time">@ ${net["Time CST"]} CST</div>
+  <div class="net-name">${net["Name Of Net"]}<span> @ ${net["Time CST"]} CST</span></div>
   <div class="net-sponsor">
     Sponsor: ${net.Sponsor}
     <span>${net.Location || ""}</span>
   </div>
-  <div class="net-details">
-    <div class="net-frequency">📻 ${net.Frequency}</div>
-    <div class="net-offset">${net.Offset || ""}</div>
-    <div class="net-pl">PL: ${net["PL Tone"] || "None"}</div>
+  <div class="next-net-details">
+    <div class="net-frequency">Frequency: ${net.Frequency}&nbsp;</div>
+    <div class="net-offset">Offset: ${net.Offset || ""}&nbsp;</div>
+    <div class="net-pl">PL: ${net["PL Tone"] || "None"}&nbsp;</div>
   </div>
-  ${timeInfo ? `<div class="net-countdown">Starts in: <strong>${timeInfo}</strong></div>` : ""}
+  ${
+    timeInfo
+      ? `
+  <div class="net-countdown">Starts in: <strong>${timeInfo}</strong></div>
+  `
+      : ""
+  }
 </div>
   `;
 }
