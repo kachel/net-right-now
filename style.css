@@ -176,7 +176,11 @@ header {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: start;
+
+  @media (min-width: 768px) {
+    align-items: center;
+  }
 }
 
 .next-net-card {
@@ -209,7 +213,11 @@ header {
 
 .next-net-details,
 .next-net-sponsor {
-  display: flex;
+  display: block;
+
+  @media (min-width: 768px) {
+    display: flex;
+  }
 }
 
 button {
