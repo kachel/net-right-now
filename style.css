@@ -237,3 +237,7 @@ button:hover {
 .time-right-now {
   text-align: center;
 }
+
+.ai-disclosure {
+  padding: 2rem;
+}
