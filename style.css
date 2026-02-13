@@ -98,7 +98,11 @@ a {
 
 h1 {
   color: var(--accent);
-  font-size: 42px;
+  font-size: 36px;
+
+  @media (min-width: 768px) {
+    font-size: 42px;
+  }
 }
 
 .title {
@@ -204,10 +208,14 @@ header {
   border: var(--text-1) outset 2px;
   border-radius: 0.25em;
   width: min(1200px, 98%);
-  font-size: 24px;
+  font-size: 18px;
 
   h2 {
     color: black;
+  }
+
+  @media (min-width: 768px) {
+    font-size: 24px;
   }
 }
 
@@ -225,9 +233,13 @@ button {
   color: black;
   border-radius: 0.15rem;
   border: var(--text-1) outset 2px;
-  font-size: 18px;
+  font-size: 16px;
   padding: 0.25rem 0.5rem;
   margin-inline: 0.25rem;
+
+  @media (min-width: 768px) {
+    font-size: 20px;
+  }
 }
 
 button:hover {
