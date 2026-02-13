@@ -241,3 +241,7 @@ button:hover {
 .ai-disclosure {
   padding: 2rem;
 }
+
+.dark-link {
+  color: var(--background-1);
+}

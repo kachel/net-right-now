@@ -102,7 +102,7 @@ async function renderNetsFromJson() {
 
         const label = document.createElement("div");
         label.className = `${fieldClass}-label`;
-        label.innerHTML = esc(key) + ':&nbsp;';
+        label.innerHTML = esc(key) + ":&nbsp;";
 
         const info = document.createElement("div");
         info.className = ` ${fieldClass}-info`;
@@ -286,7 +286,8 @@ function createNetCard(net, status, timeInfo = "") {
 <div class="next-net-card ${status}">
   <div class="net-name">${net["Name Of Net"]}<span> @ ${net["Time CST"]} CST</span></div>
   <div class="net-sponsor">
-    Sponsor: ${net.Sponsor}
+    Sponsor: 
+    <a class="dark-link" href="${net.Website}">${net.Sponsor}</a>
   </div>
   <div>${net.Location || ""}</div>
   <div class="next-net-details">

@@ -93,7 +93,7 @@
     "Internet Link": "",
     "Mode": "FM, Internet",
     "Band": "160m",
-    "Website": "www.mobileers.com"
+    "Website": "https://www.mobileers.com"
   },
   {
     "ID": "7",
@@ -237,7 +237,7 @@
     "Internet Link": "",
     "Mode": "FM",
     "Band": "2m",
-    "Website": "http://ilyh.org/net/ and https://sararepeater.com/"
+    "Website": "http://ilyh.org/net/"
   },
   {
     "ID": "16",
@@ -249,11 +249,11 @@
     "Type": "Info",
     "Frequency": "224.100",
     "Offset": "-",
-    "PL Tone": "NO PL",
+    "PL Tone": "Input 222.5000",
     "Internet Link": "Allstar: 555490",
     "Mode": "FM, Internet",
     "Band": "1.25m",
-    "Website": "Input 222.5000"
+    "Website": ""
   },
   {
     "ID": "17",
@@ -301,7 +301,7 @@
     "Internet Link": "",
     "Mode": "FM",
     "Band": "2m",
-    "Website": "Frequencies may change"
+    "Website": ""
   },
   {
     "ID": "20",
@@ -333,7 +333,7 @@
     "Internet Link": "Echolink: WA9ORC-R Allstar: 555492",
     "Mode": "FM",
     "Band": "70cm",
-    "Website": "chicagofmclub.org"
+    "Website": "https://www.chicagofmclub.org"
   },
 
   {
@@ -476,7 +476,7 @@
     "Internet Link": "",
     "Mode": "FM",
     "Band": "2m",
-    "Website": "EZ Pal http://w9dup.org"
+    "Website": "http://w9dup.org"
   },
   {
     "ID": "31",
