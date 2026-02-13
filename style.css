@@ -139,7 +139,8 @@ h1 {
   }
 }
 
-.name {
+.name,
+.accent {
   color: var(--accent);
 }
 

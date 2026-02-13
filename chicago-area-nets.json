@@ -45,7 +45,7 @@
     "Internet Link": "Echolink: K9BAR-R",
     "Mode": "FM, Internet",
     "Band": "2m",
-    "Website": "www.k9bar.org"
+    "Website": "https://www.k9bar.org"
   },
   {
     "ID": "4",
@@ -61,7 +61,7 @@
     "Internet Link": "Echolink: wa9orc-r, Allstar: 555491",
     "Mode": "FM, Internet",
     "Band": "70cm",
-    "Website": "http://chicagofmclub.org/"
+    "Website": "https://chicagofmclub.org/"
   },
   {
     "ID": "5",
@@ -125,7 +125,7 @@
     "Internet Link": "Echolink: W9DUP-R",
     "Mode": "FM, Internet",
     "Band": "2m",
-    "Website": "http://www.w9dup.org"
+    "Website": "https://www.w9dup.org"
   },
   {
     "ID": "9",
@@ -141,7 +141,7 @@
     "Internet Link": "",
     "Mode": "FM",
     "Band": "2m",
-    "Website": "http://norarepeater.weebly.com/"
+    "Website": "https://norarepeater.weebly.com/"
   },
   {
     "ID": "10",
@@ -189,7 +189,7 @@
     "Internet Link": "",
     "Mode": "FM",
     "Band": "2m",
-    "Website": "http://www.Wx9krc.org"
+    "Website": "https://www.Wx9krc.org"
   },
   {
     "ID": "13",
@@ -237,7 +237,7 @@
     "Internet Link": "",
     "Mode": "FM",
     "Band": "2m",
-    "Website": "http://ilyh.org/net/"
+    "Website": "https://ilyh.org/net/"
   },
   {
     "ID": "16",
@@ -366,7 +366,7 @@
     "Internet Link": "",
     "Mode": "FM",
     "Band": "2m",
-    "Website": "http://w9src.org/"
+    "Website": "https://w9src.org/"
   },
   {
     "ID": "24",
@@ -414,7 +414,7 @@
     "Internet Link": "",
     "Mode": "FM",
     "Band": "2m",
-    "Website": "http://www.chicagolandskywarn.org"
+    "Website": "https://www.chicagolandskywarn.org"
   },
   {
     "ID": "27",
@@ -444,7 +444,7 @@
     "Offset": "",
     "PL Tone": "USB",
     "Internet Link": "",
-    "Website": "http://www.hamfesters.org  http://www.w9aa.org"
+    "Website": "https://www.hamfesters.org  https://www.w9aa.org"
   },
   {
     "ID": "29",
@@ -460,7 +460,7 @@
     "Internet Link": "",
     "Mode": "FM",
     "Band": "2m",
-    "Website": "http://www.w9vt.org/"
+    "Website": "https://www.w9vt.org/"
   },
   {
     "ID": "30",
@@ -476,7 +476,7 @@
     "Internet Link": "",
     "Mode": "FM",
     "Band": "2m",
-    "Website": "http://w9dup.org"
+    "Website": "https://w9dup.org"
   },
   {
     "ID": "31",
@@ -508,7 +508,7 @@
     "Internet Link": "",
     "Mode": "FM",
     "Band": "2m",
-    "Website": "http://www.w9ccu.org/"
+    "Website": "https://www.w9ccu.org/"
   },
   {
     "ID": "33",
@@ -524,7 +524,7 @@
     "Internet Link": "Echolink: W9DUP-R",
     "Mode": "FM, Internet",
     "Band": "2m",
-    "Website": "http://www.w9dup.org"
+    "Website": "https://www.w9dup.org"
   },
   {
     "ID": "34",
@@ -540,7 +540,7 @@
     "Internet Link": "",
     "Mode": "FM",
     "Band": "2m",
-    "Website": "http://www.metroarc.org/"
+    "Website": "https://www.metroarc.org/"
   },
   {
     "ID": "35",
@@ -556,7 +556,7 @@
     "Internet Link": "Echolink: WB0VHF-L",
     "Mode": "FM, Internet",
     "Band": "2m",
-    "Website": "http://www.suhfars.org"
+    "Website": "https://www.suhfars.org"
   },
   {
     "ID": "36",
@@ -588,7 +588,7 @@
     "Internet Link": "",
     "Mode": "FM",
     "Band": "2m",
-    "Website": "http://w9axd.org/"
+    "Website": "https://w9axd.org/"
   },
   {
     "ID": "38",
@@ -620,7 +620,7 @@
     "Internet Link": "",
     "Mode": "FM",
     "Band": "2m",
-    "Website": "http://www.csraham.com"
+    "Website": "https://www.csraham.com"
   },
   {
     "ID": "40",
@@ -636,7 +636,7 @@
     "Internet Link": "",
     "Mode": "FM",
     "Band": "10m",
-    "Website": "http://www.frrl.org"
+    "Website": "https://www.frrl.org"
   },
   {
     "ID": "41",
@@ -652,7 +652,7 @@
     "Internet Link": "",
     "Mode": "FM",
     "Band": "2m",
-    "Website": "races.org"
+    "Website": "https://www.races.org"
   },
   {
     "ID": "42",
@@ -668,7 +668,7 @@
     "Internet Link": "",
     "Mode": "FM",
     "Band": "2m",
-    "Website": "http://mcraces.org/"
+    "Website": "https://www.mcraces.org/"
   },
   {
     "ID": "43",
@@ -700,7 +700,7 @@
     "Internet Link": "",
     "Mode": "FM",
     "Band": "2m",
-    "Website": "http://www.illinoisradioleague.org/irlnets.php"
+    "Website": "https://www.illinoisradioleague.org/irlnets.php"
   },
   {
     "ID": "45",
@@ -716,7 +716,7 @@
     "Internet Link": "EL W9DUP-R",
     "Mode": "FM, Internet",
     "Band": "2m",
-    "Website": "http://www.w9dup.org"
+    "Website": "https://www.w9dup.org"
   },
   {
     "ID": "46",
@@ -732,7 +732,7 @@
     "Internet Link": "",
     "Mode": "FM",
     "Band": "2m",
-    "Website": "http://yorkradioclub.com/"
+    "Website": "https://yorkradioclub.com/"
   },
   {
     "ID": "47",
@@ -748,7 +748,7 @@
     "Internet Link": "Echolink: W9AZ-R",
     "Mode": "FM, Internet",
     "Band": "2m",
-    "Website": "http://www.w9az.com/"
+    "Website": "https://www.w9az.com/"
   },
   {
     "ID": "48",
@@ -812,7 +812,7 @@
     "Internet Link": "",
     "Mode": "FM",
     "Band": "6m",
-    "Website": "http://yorkradioclub.com/"
+    "Website": "https://yorkradioclub.com/"
   },
   {
     "ID": "52",
@@ -828,7 +828,7 @@
     "Internet Link": "",
     "Mode": "FM",
     "Band": "2m",
-    "Website": "http://www.metroarc.org/info"
+    "Website": "https://www.metroarc.org/info"
   },
   {
     "ID": "53",
@@ -844,7 +844,7 @@
     "Internet Link": "",
     "Mode": "FM",
     "Band": "2m",
-    "Website": "http://www.hamfesters.org  http://www.w9aa.org"
+    "Website": "https://www.hamfesters.org  https://www.w9aa.org"
   },
   {
     "ID": "54",
@@ -860,7 +860,7 @@
     "Internet Link": "",
     "Mode": "FM",
     "Band": "2m",
-    "Website": "http://nidxa.org/index.htm"
+    "Website": "https://nidxa.org/index.htm"
   },
   {
     "ID": "55",
@@ -908,7 +908,7 @@
     "Internet Link": "",
     "Mode": "Internet",
     "Band": "70cm",
-    "Website": "http://www.w9src.org"
+    "Website": "https://www.w9src.org"
   },
   {
     "ID": "58",
@@ -972,7 +972,7 @@
     "Internet Link": "IR: 9050",
     "Mode": "FM",
     "Band": "70cm",
-    "Website": "http://www.eastcoastreflector.com/"
+    "Website": "https://www.eastcoastreflector.com/"
   },
   {
     "ID": "62",
@@ -1004,7 +1004,7 @@
     "Internet Link": "",
     "Mode": "FM",
     "Band": "2m",
-    "Website": "http://www.frrl.org"
+    "Website": "https://www.frrl.org"
   },
   {
     "ID": "64",
@@ -1020,7 +1020,7 @@
     "Internet Link": "Echolink: W9DUP-R",
     "Mode": "FM, Internet",
     "Band": "2m",
-    "Website": "http://www.dupageares.org/dupagecountyemcommnet.html"
+    "Website": "https://www.dupageares.org/dupagecountyemcommnet.html"
   },
   {
     "ID": "65",
@@ -1036,7 +1036,7 @@
     "Internet Link": "",
     "Mode": "FM",
     "Band": "2m",
-    "Website": "http://www.w9ccu.org/"
+    "Website": "https://www.w9ccu.org/"
   },
   {
     "ID": "66",
@@ -1084,7 +1084,7 @@
     "Internet Link": "Echolink: KD9YDD-R Allstar: 555492",
     "Mode": "FM, Internet",
     "Band": "2m",
-    "Website": "http://chicagofmclub.org/"
+    "Website": "https://chicagofmclub.org/"
   },
   {
     "ID": "69",
@@ -1100,7 +1100,7 @@
     "Internet Link": "",
     "Mode": "FM",
     "Band": "2m",
-    "Website": "http://www.k9ona.com"
+    "Website": "https://www.k9ona.com"
   },
   {
     "ID": "70",
@@ -1116,7 +1116,7 @@
     "Internet Link": "",
     "Mode": "FM",
     "Band": "2m",
-    "Website": "http://www.kcoem.org/Pages/Volunteer-Program/Amateur-Radio.aspx  http://kanecountyares.org/nets"
+    "Website": "https://www.kcoem.org/Pages/Volunteer-Program/Amateur-Radio.aspx  https://kanecountyares.org/nets"
   },
   {
     "ID": "71",
@@ -1148,7 +1148,7 @@
     "Internet Link": "",
     "Mode": "FM",
     "Band": "6m",
-    "Website": "http://www.mcwa.org"
+    "Website": "https://www.mcwa.org"
   },
   {
     "ID": "73",
@@ -1180,7 +1180,7 @@
     "Internet Link": "",
     "Mode": "FM",
     "Band": "2m",
-    "Website": "http://w9src.org/"
+    "Website": "https://w9src.org/"
   },
   {
     "ID": "75",
@@ -1196,7 +1196,7 @@
     "Internet Link": "Allstar: 555490",
     "Mode": "FM, Internet",
     "Band": "1.25m",
-    "Website": "http://www.chicagofmclub.org"
+    "Website": "https://www.chicagofmclub.org"
   },
   {
     "ID": "76",
@@ -1212,7 +1212,7 @@
     "Internet Link": "",
     "Mode": "FM",
     "Band": "6m",
-    "Website": "http://www.w9dup.org/"
+    "Website": "https://www.w9dup.org/"
   },
   {
     "ID": "77",
@@ -1228,7 +1228,7 @@
     "Internet Link": "Echolink: K9LOT-1",
     "Mode": "FM, Internet",
     "Band": "70cm",
-    "Website": "http://wcares.weebly.com/"
+    "Website": "https://wcares.weebly.com/"
   },
   {
     "ID": "78",
@@ -1244,7 +1244,7 @@
     "Internet Link": "",
     "Mode": "FM",
     "Band": "2m",
-    "Website": "http://www.illinoisradioleague.org/irlnets.php"
+    "Website": "https://www.illinoisradioleague.org/irlnets.php"
   },
   {
     "ID": "79",
@@ -1260,7 +1260,7 @@
     "Internet Link": "",
     "Mode": "FM",
     "Band": "2m",
-    "Website": "http://kendallilares.home.comcast.net/~kendallilares/"
+    "Website": "https://kendallilares.home.comcast.net/~kendallilares/"
   },
   {
     "ID": "80",
@@ -1276,7 +1276,7 @@
     "Internet Link": "",
     "Mode": "FM",
     "Band": "2m",
-    "Website": "http://www.w9vt.org"
+    "Website": "https://www.w9vt.org"
   },
   {
     "ID": "81",
@@ -1292,7 +1292,7 @@
     "Internet Link": "",
     "Mode": "FM",
     "Band": "2m",
-    "Website": "http://www.w9ypc.org"
+    "Website": "https://www.w9ypc.org"
   },
   {
     "ID": "82",
@@ -1308,7 +1308,7 @@
     "Internet Link": "IR: 4774 Echolink: W9YRC-R Allstar: 27093",
     "Mode": "FM, Internet",
     "Band": "2m",
-    "Website": "http://yorkradioclub.com/"
+    "Website": "https://yorkradioclub.com/"
   },
   {
     "ID": "83",
@@ -1324,7 +1324,7 @@
     "Internet Link": "",
     "Mode": "FM",
     "Band": "2m",
-    "Website": "http://www.qsl.net/wafar"
+    "Website": "https://www.qsl.net/wafar"
   },
   {
     "ID": "84",
@@ -1340,7 +1340,7 @@
     "Internet Link": "",
     "Mode": "FM",
     "Band": "2m",
-    "Website": "http://norarepeater.weebly.com/"
+    "Website": "https://www.norarepeater.weebly.com/"
   },
   {
     "ID": "85",
@@ -1356,7 +1356,7 @@
     "Internet Link": "",
     "Mode": "FM",
     "Band": "2m",
-    "Website": "http://k9bar.org/"
+    "Website": "https://www.k9bar.org/"
   },
   {
     "ID": "86",
@@ -1372,7 +1372,7 @@
     "Internet Link": "",
     "Mode": "FM",
     "Band": "2m",
-    "Website": "http://www.w9dup.org/"
+    "Website": "https://www.w9dup.org/"
   },
   {
     "ID": "87",
@@ -1388,7 +1388,7 @@
     "Internet Link": "",
     "Mode": "FM",
     "Band": "2m",
-    "Website": "http://www.mpdes.org"
+    "Website": "https://www.mpdes.org"
   },
   {
     "ID": "88",
@@ -1404,7 +1404,7 @@
     "Internet Link": "",
     "Mode": "FM",
     "Band": "2m",
-    "Website": "http://www.metroarc.org/"
+    "Website": "https://www.metroarc.org/"
   },
   {
     "ID": "89",
@@ -1420,7 +1420,7 @@
     "Internet Link": "",
     "Mode": "FM",
     "Band": "2m",
-    "Website": "https://sararepeater.com/"
+    "Website": "https://www.sararepeater.com/"
   },
   {
     "ID": "90",
@@ -1468,7 +1468,7 @@
     "Internet Link": "",
     "Mode": "FM",
     "Band": "2m",
-    "Website": "https://wcars.radio/"
+    "Website": "https://www.wcars.radio/"
   },
   {
     "ID": "93",
@@ -1500,7 +1500,7 @@
     "Internet Link": "",
     "Mode": "FM",
     "Band": "2m",
-    "Website": "http://www.karc-club.org"
+    "Website": "https://www.karc-club.org"
   },
   {
     "ID": "95",
@@ -1516,7 +1516,7 @@
     "Internet Link": "Echolink: K9CCL-L",
     "Mode": "FM, Internet",
     "Band": "2m",
-    "Website": "https://sites.google.com/site/k9cclradio/"
+    "Website": "https://www.sites.google.com/site/k9cclradio/"
   },
   {
     "ID": "96",
@@ -1532,7 +1532,7 @@
     "Internet Link": "Echolink: K9BAR-R",
     "Mode": "FM, Internet",
     "Band": "2m",
-    "Website": "http://k9bar.org/"
+    "Website": "https://www.k9bar.org/"
   },
   {
     "ID": "97",
@@ -1548,7 +1548,7 @@
     "Internet Link": "Echolink: K9IIK-R Allstar:27833",
     "Mode": "FM, Internet",
     "Band": "2m",
-    "Website": "http://www.n9rjv.org/"
+    "Website": "https://www.n9rjv.org/"
   },
   {
     "ID": "98",
@@ -1564,7 +1564,7 @@
     "Internet Link": "Echolink: KD9YDD-R Allstar: 555492",
     "Mode": "FM, Internet",
     "Band": "2m",
-    "Website": "http://chicagofmclub.org/"
+    "Website": "https://www.chicagofmclub.org/"
   },
   {
     "ID": "99",
@@ -1580,7 +1580,7 @@
     "Internet Link": "",
     "Mode": "FM",
     "Band": "2m",
-    "Website": "www.races.org"
+    "Website": "https://www.races.org"
   },
   {
     "ID": "100",
@@ -1596,7 +1596,7 @@
     "Internet Link": "IR: 4206",
     "Mode": "FM",
     "Band": "70cm",
-    "Website": "http://www.ns9rc.org/"
+    "Website": "https://www.ns9rc.org/"
   },
   {
     "ID": "101",
@@ -1644,7 +1644,7 @@
     "Internet Link": "",
     "Mode": "FM",
     "Band": "2m",
-    "Website": "http://k9bar.org/"
+    "Website": "https://www.k9bar.org/"
   },
   {
     "ID": "104",
@@ -1660,7 +1660,7 @@
     "Internet Link": "Echolink: W9DUP-R",
     "Mode": "FM, Internet",
     "Band": "2m",
-    "Website": "http://www.swaog.com/"
+    "Website": "https://www.swaog.com/"
   },
   {
     "ID": "105",
@@ -1692,7 +1692,7 @@
     "Internet Link": "",
     "Mode": "FM",
     "Band": "2m",
-    "Website": "http://www.qcwa.org/"
+    "Website": "https://www.qcwa.org/"
   },
   {
     "ID": "107",
@@ -1708,7 +1708,7 @@
     "Internet Link": "",
     "Mode": "FM",
     "Band": "40m",
-    "Website": "http://www.csraham.com"
+    "Website": "https://www.csraham.com"
   },
   {
     "ID": "108",
@@ -1724,6 +1724,6 @@
     "Internet Link": "",
     "Mode": "FM",
     "Band": "2m",
-    "Website": "http://k9bar.org/"
+    "Website": "https://www.k9bar.org/"
   }
 ]
