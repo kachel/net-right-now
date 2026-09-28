@@ -1,0 +1,472 @@
+/* ---------------------------------- */
+/* case study — page shell             */
+/* ---------------------------------- */
+
+.case-study-body {
+  background-color: var(--bg-0);
+}
+
+.cs-header {
+  background-color: var(--bg-1);
+  border-bottom: 1px solid var(--border);
+  padding: 2rem 1.25rem 2.5rem;
+}
+
+.cs-header-inner {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.cs-back-link {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--text-2);
+  margin-bottom: 1.5rem;
+}
+
+.cs-back-link:hover {
+  color: var(--orange);
+}
+
+.cs-kicker {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--orange);
+  margin-bottom: 0.5rem;
+}
+
+.cs-title {
+  font-family: var(--font-header);
+  font-weight: 500;
+  font-size: 2.1rem;
+  line-height: 1.15;
+  color: var(--text-1);
+  margin-bottom: 1rem;
+
+  @media (min-width: 640px) {
+    font-size: 2.7rem;
+  }
+}
+
+.cs-lede {
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--text-2);
+  max-width: 65ch;
+  margin-bottom: 2rem;
+}
+
+.cs-stat-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem 2.5rem;
+}
+
+.cs-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.cs-stat-value {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 1.4rem;
+  color: var(--text-1);
+}
+
+.cs-stat-label {
+  font-size: 0.8rem;
+  color: var(--text-3);
+}
+
+.cs-main {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 3rem 1.25rem 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
+}
+
+.cs-section-title {
+  font-family: var(--font-header);
+  font-weight: 500;
+  font-size: 1.5rem;
+  color: var(--text-1);
+  margin-bottom: 0.85rem;
+
+  @media (min-width: 640px) {
+    font-size: 1.75rem;
+  }
+}
+
+.cs-section-body {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--text-2);
+  max-width: 68ch;
+  margin-bottom: 0.9rem;
+}
+
+.cs-section-body:last-of-type {
+  margin-bottom: 1.25rem;
+}
+
+.cs-section-body code,
+.cs-section-body :is(p, li) code {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  color: var(--text-1);
+  background-color: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 0.05em 0.35em;
+}
+
+/* ---------------------------------- */
+/* before/after compare slider         */
+/* ---------------------------------- */
+
+.compare-slider {
+  position: relative;
+  max-width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+  border: 1px solid var(--border-strong);
+  border-radius: 2px;
+  cursor: ew-resize;
+  user-select: none;
+  touch-action: none;
+}
+
+.compare-slider:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 2px;
+}
+
+.compare-slider-mobile {
+  max-width: 320px;
+}
+
+.compare-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  pointer-events: none;
+}
+
+.compare-img-before {
+  position: relative;
+}
+
+.compare-img-after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  clip-path: inset(0 50% 0 0);
+}
+
+.compare-handle {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  height: 100%;
+  width: 2px;
+  background-color: var(--orange);
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.compare-handle svg {
+  width: 2rem;
+  height: 2rem;
+  padding: 0.4rem;
+  color: #16130f;
+  background-color: var(--orange);
+  border-radius: 999px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.compare-tag {
+  position: absolute;
+  top: 0.6rem;
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--text-1);
+  background-color: rgba(18, 19, 22, 0.75);
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  padding: 0.2rem 0.65rem;
+  pointer-events: none;
+}
+
+.compare-tag-before {
+  left: 0.6rem;
+}
+
+.compare-tag-after {
+  right: 0.6rem;
+}
+
+/* ---------------------------------- */
+/* data coverage table                 */
+/* ---------------------------------- */
+
+.cs-data-table {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+
+.cs-data-row {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr 1.4fr;
+  gap: 0.75rem;
+  padding: 0.7rem 0.9rem;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.9rem;
+  color: var(--text-2);
+}
+
+.cs-data-row:last-child {
+  border-bottom: none;
+}
+
+.cs-data-head {
+  background-color: var(--bg-1);
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--text-3);
+  font-size: 0.8rem;
+}
+
+.cs-data-mono {
+  font-family: var(--font-mono);
+  color: var(--text-1);
+}
+
+.cs-data-highlight {
+  color: var(--text-1);
+  font-weight: 600;
+}
+
+/* ---------------------------------- */
+/* callout                             */
+/* ---------------------------------- */
+
+.cs-callout {
+  border: 1px solid var(--border-strong);
+  border-radius: 2px;
+  padding: 1rem 1.15rem;
+  background-color: var(--bg-1);
+}
+
+.cs-callout-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--orange);
+  margin-bottom: 0.4rem;
+}
+
+.cs-callout-body {
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: var(--text-2);
+}
+
+.cs-callout-body code {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  color: var(--text-1);
+  background-color: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 0.05em 0.35em;
+}
+
+/* ---------------------------------- */
+/* bug list                            */
+/* ---------------------------------- */
+
+.cs-bug-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  counter-reset: bug;
+}
+
+.cs-bug {
+  position: relative;
+  padding: 1rem 1.15rem 1rem 3.25rem;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  counter-increment: bug;
+}
+
+.cs-bug::before {
+  content: counter(bug);
+  position: absolute;
+  left: 1.05rem;
+  top: 1rem;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--text-3);
+}
+
+.cs-bug-title {
+  font-family: var(--font-header);
+  font-weight: 500;
+  font-size: 1.1rem;
+  color: var(--text-1);
+  margin-bottom: 0.4rem;
+}
+
+.cs-bug-body {
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: var(--text-2);
+}
+
+.cs-bug-body code {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  color: var(--text-1);
+  background-color: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 0.05em 0.35em;
+}
+
+/* ---------------------------------- */
+/* critique score                      */
+/* ---------------------------------- */
+
+.cs-score-panel {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  border: 1px solid var(--border-strong);
+  border-radius: 2px;
+  padding: 1.25rem 1.5rem;
+  flex-wrap: wrap;
+}
+
+.cs-score-value {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 2.75rem;
+  color: var(--orange);
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.cs-score-max {
+  font-size: 1.4rem;
+  color: var(--text-3);
+  font-weight: 500;
+}
+
+.cs-score-band {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--text-1);
+  margin-bottom: 0.3rem;
+}
+
+.cs-score-issues {
+  font-size: 0.88rem;
+  color: var(--text-2);
+  line-height: 1.55;
+  max-width: 45ch;
+}
+
+/* ---------------------------------- */
+/* feature grid                        */
+/* ---------------------------------- */
+
+.cs-feature-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.cs-feature {
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 1rem 1.1rem;
+}
+
+.cs-feature-title {
+  font-family: var(--font-header);
+  font-weight: 500;
+  font-size: 1rem;
+  color: var(--text-1);
+  margin-bottom: 0.4rem;
+}
+
+.cs-feature-body {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--text-2);
+}
+
+.cs-feature-body code {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  color: var(--text-1);
+  background-color: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 0.05em 0.3em;
+}
+
+.cs-feature-cut {
+  border-style: dashed;
+  border-color: var(--border-strong);
+}
+
+.cs-feature-cut .cs-feature-title {
+  color: var(--text-3);
+}
+
+/* ---------------------------------- */
+/* footer                              */
+/* ---------------------------------- */
+
+.cs-footer {
+  border-top: 1px solid var(--border);
+  background-color: var(--bg-1);
+  text-align: center;
+  padding: 2rem 1.25rem;
+}
+
+.cs-footer p + p {
+  margin-top: 0.5rem;
+}
+
+.cs-footer-note {
+  font-size: 0.82rem;
+  color: var(--text-3);
+  max-width: 55ch;
+  margin: 0.6rem auto 0;
+}
