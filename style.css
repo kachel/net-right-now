@@ -242,7 +242,8 @@ button {
 .status-clock {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
+  align-self: center;
   gap: 0.15rem;
   padding: 0.5rem 0.9rem;
   background-color: var(--bg-2);
@@ -251,6 +252,7 @@ button {
 
   @media (min-width: 768px) {
     align-items: flex-end;
+    align-self: auto;
   }
 }
 
