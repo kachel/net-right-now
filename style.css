@@ -345,6 +345,18 @@ main {
   .more-filters-chevron {
     transition: none;
   }
+
+  .sort-chevron {
+    transition: opacity 150ms ease;
+  }
+
+  #nets-tbody {
+    transition: none;
+  }
+
+  .nets-table tbody tr {
+    transition: none;
+  }
 }
 
 @keyframes pulse-led {
@@ -537,14 +549,19 @@ main {
   transform: rotate(180deg);
 }
 
-#more-filters {
+.disclosure {
+  height: 0;
+  overflow: hidden;
+}
+
+.disclosure.expanded {
+  height: auto;
+}
+
+#more-filters .disclosure-inner {
   display: flex;
   flex-direction: column;
   gap: 0.85rem;
-}
-
-#more-filters[hidden] {
-  display: none;
 }
 
 .search-field {
@@ -709,6 +726,10 @@ main {
   min-width: 760px;
 }
 
+#nets-tbody {
+  transition: opacity 120ms ease;
+}
+
 .nets-table thead th {
   position: sticky;
   top: 0;
@@ -745,28 +766,30 @@ main {
   outline-offset: -2px;
 }
 
-.th-btn::after {
-  content: "";
-  width: 0;
-  height: 0;
-  border-left: 4px solid transparent;
-  border-right: 4px solid transparent;
-  opacity: 0.4;
+.sort-chevron {
+  width: 0.7rem;
+  height: 0.7rem;
+  flex-shrink: 0;
+  opacity: 0.35;
+  transform: rotate(0deg);
+  transition:
+    transform 200ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 150ms ease;
 }
 
-th[aria-sort="ascending"] .th-btn::after {
-  border-bottom: 5px solid var(--orange);
+th[aria-sort] .sort-chevron {
   opacity: 1;
+  color: var(--orange);
 }
 
-th[aria-sort="descending"] .th-btn::after {
-  border-top: 5px solid var(--orange);
-  opacity: 1;
+th[aria-sort="ascending"] .sort-chevron {
+  transform: rotate(180deg);
 }
 
 .nets-table tbody tr {
   border-bottom: 1px solid var(--border);
   background-color: var(--bg-1);
+  transition: background-color 120ms ease;
 }
 
 .nets-table tbody tr:nth-child(even) {

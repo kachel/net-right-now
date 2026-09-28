@@ -359,6 +359,20 @@ function updateResetFiltersVisibility() {
   if (resetBtn) resetBtn.hidden = !anyFilterActive();
 }
 
+function fadeSwap(el, updateFn) {
+  if (!el.children.length) {
+    updateFn();
+    return;
+  }
+  el.style.opacity = "0";
+  window.setTimeout(() => {
+    updateFn();
+    requestAnimationFrame(() => {
+      el.style.opacity = "1";
+    });
+  }, 120);
+}
+
 function renderTable() {
   const tbody = document.getElementById("nets-tbody");
   const noResults = document.getElementById("no-results");
@@ -374,17 +388,18 @@ function renderTable() {
     resultCount.textContent = `${nets.length} net${nets.length === 1 ? "" : "s"}`;
   }
 
-  if (nets.length === 0) {
-    tbody.innerHTML = "";
-    if (noResults) noResults.hidden = false;
-    return;
-  }
-  if (noResults) noResults.hidden = true;
+  fadeSwap(tbody, () => {
+    if (nets.length === 0) {
+      tbody.innerHTML = "";
+      if (noResults) noResults.hidden = false;
+      return;
+    }
+    if (noResults) noResults.hidden = true;
 
-  tbody.innerHTML = nets
-    .map((net) => {
-      const live = isNetLiveNow(net);
-      return `
+    tbody.innerHTML = nets
+      .map((net) => {
+        const live = isNetLiveNow(net);
+        return `
 <tr class="${live ? "row-live" : ""}">
   <td data-label="Day">${esc(net.Day || "")}</td>
   <td class="cell-mono" data-label="Time CST">${esc(net["Time CST"] || "")}</td>
@@ -394,10 +409,11 @@ function renderTable() {
   <td data-label="Band">${net.Band ? `<span class="band-tag">${esc(net.Band)}</span>` : ""}</td>
   <td data-label="Location">${esc(net.Location || "")}</td>
 </tr>`;
-    })
-    .join("");
+      })
+      .join("");
 
-  renderTableHeaderSortState();
+    renderTableHeaderSortState();
+  });
 }
 
 /* ---------------------------------- */
@@ -502,16 +518,50 @@ function debounce(fn, delay) {
   };
 }
 
+function prefersReducedMotion() {
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
+function setDisclosureExpanded(el, expand) {
+  if (!el) return;
+  const inner = el.querySelector(".disclosure-inner") || el;
+
+  if (expand) el.removeAttribute("inert");
+
+  if (prefersReducedMotion()) {
+    el.getAnimations().forEach((a) => a.cancel());
+    el.classList.toggle("expanded", expand);
+    el.style.height = expand ? "auto" : "0px";
+    if (!expand) el.setAttribute("inert", "");
+    return;
+  }
+
+  const startHeight = el.getBoundingClientRect().height;
+  el.getAnimations().forEach((a) => a.cancel());
+  el.classList.toggle("expanded", expand);
+  const endHeight = expand ? inner.scrollHeight : 0;
+
+  el.style.height = `${startHeight}px`;
+  const anim = el.animate([{ height: `${startHeight}px` }, { height: `${endHeight}px` }], {
+    duration: 280,
+    easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+  });
+  anim.onfinish = () => {
+    el.style.height = expand ? "auto" : "0px";
+    if (!expand) el.setAttribute("inert", "");
+  };
+}
+
 /* ---------------------------------- */
 /* toggle / render orchestration       */
 /* ---------------------------------- */
 
 function toggleNetsVisibility() {
   netsVisible = !netsVisible;
-  const wrap = document.getElementById("nets-table-wrap");
+  const wrap = document.getElementById("schedule-disclosure");
   const toggleBtn = document.getElementById("toggle-nets-btn");
 
-  if (wrap) wrap.style.display = netsVisible ? "block" : "none";
+  setDisclosureExpanded(wrap, netsVisible);
   if (toggleBtn) {
     toggleBtn.textContent = netsVisible ? "Hide Schedule" : "Show Schedule";
     toggleBtn.setAttribute("aria-pressed", String(netsVisible));
@@ -571,7 +621,7 @@ function initUI() {
   const setMoreFiltersExpanded = (expanded) => {
     if (!moreFiltersBtn || !moreFiltersPanel) return;
     moreFiltersBtn.setAttribute("aria-expanded", String(expanded));
-    moreFiltersPanel.hidden = !expanded;
+    setDisclosureExpanded(moreFiltersPanel, expanded);
     moreFiltersBtn.querySelector(".more-filters-btn-label").textContent = expanded
       ? "Fewer Filters"
       : "More Filters";
