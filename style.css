@@ -648,6 +648,31 @@ main {
   color: #16130f;
 }
 
+.favorites-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.fav-toggle-star {
+  width: 0.85rem;
+  height: 0.85rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linejoin: round;
+}
+
+.favorites-toggle-btn[aria-pressed="true"] {
+  border-color: var(--amber);
+  color: var(--text-1);
+}
+
+.favorites-toggle-btn[aria-pressed="true"] .fav-toggle-star {
+  fill: var(--amber);
+  stroke: var(--amber);
+}
+
 /* ---------------------------------- */
 /* schedule / table                    */
 /* ---------------------------------- */
@@ -820,6 +845,44 @@ th[aria-sort="ascending"] .sort-chevron {
   font-weight: 600;
 }
 
+.fav-star {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: -3px;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-right: 0.15rem;
+  padding: 0;
+  background: transparent;
+  border: none;
+  color: var(--text-3);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.fav-star svg {
+  width: 1.05rem;
+  height: 1.05rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linejoin: round;
+  transition: fill 120ms ease, stroke 120ms ease;
+}
+
+.fav-star:hover {
+  color: var(--amber);
+}
+
+.fav-star.active {
+  color: var(--amber);
+}
+
+.fav-star.active svg {
+  fill: var(--amber);
+}
+
 .nets-table td.cell-mono {
   font-family: var(--font-mono);
   font-size: 0.82rem;
@@ -949,6 +1012,8 @@ th[aria-sort="ascending"] .sort-chevron {
 
   .nets-table td.cell-name {
     order: -1;
+    justify-content: flex-start;
+    align-items: center;
     font-size: 1.05rem;
     padding-top: 0;
     padding-bottom: 0.5rem;

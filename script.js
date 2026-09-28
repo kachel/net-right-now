@@ -4,6 +4,8 @@ const BAND_ORDER = ["10m", "6m", "2m", "1.25m", "70cm", "40m", "80m", "160m"];
 const NON_HAM_BANDS = ["GMRS", "Internet"];
 const CATEGORY_ORDER = ["Amateur Radio", "GMRS", "Internet"];
 
+const FAVORITES_KEY = "chz-favorites";
+
 let allNets = [];
 let netsVisible = true;
 let locationFilter = "all"; // 'chicago', 'chicagoland', or 'all'
@@ -13,6 +15,8 @@ let bandFilter = "all";
 let searchQuery = "";
 let sortKey = null;
 let sortDir = "asc";
+let favorites = new Set();
+let favoritesOnly = false;
 
 const esc = (s) =>
   String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
@@ -103,6 +107,51 @@ function filterByBand(nets) {
   return nets.filter((net) => net.Band === bandFilter);
 }
 
+function loadFavorites() {
+  try {
+    const raw = localStorage.getItem(FAVORITES_KEY);
+    favorites = new Set(raw ? JSON.parse(raw) : []);
+  } catch {
+    favorites = new Set();
+  }
+}
+
+function saveFavorites() {
+  try {
+    localStorage.setItem(FAVORITES_KEY, JSON.stringify([...favorites]));
+  } catch {
+    // localStorage unavailable (private browsing, storage full) — favorites just won't persist
+  }
+}
+
+function isFavorite(net) {
+  return favorites.has(String(net.ID));
+}
+
+function toggleFavorite(id) {
+  id = String(id);
+  if (favorites.has(id)) favorites.delete(id);
+  else favorites.add(id);
+  saveFavorites();
+  updateFavoritesCount();
+}
+
+function updateFavoritesCount() {
+  const label = document.getElementById("favorites-toggle-label");
+  if (label) label.textContent = favorites.size > 0 ? `Favorites (${favorites.size})` : "Favorites";
+}
+
+function favStarHtml(net) {
+  const fav = isFavorite(net);
+  const label = fav ? "Remove from favorites" : "Add to favorites";
+  return `<button type="button" class="fav-star${fav ? " active" : ""}" data-fav-id="${esc(net.ID)}" aria-pressed="${fav}" aria-label="${label}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l2.5 5.6 6.1.6-4.6 4.1 1.4 6-5.4-3.2-5.4 3.2 1.4-6-4.6-4.1 6.1-.6z" /></svg></button>`;
+}
+
+function filterByFavorites(nets) {
+  if (!favoritesOnly) return nets;
+  return nets.filter((net) => isFavorite(net));
+}
+
 function filterBySearch(nets) {
   if (!searchQuery) return nets;
   const q = searchQuery.toLowerCase();
@@ -119,6 +168,7 @@ function getFilteredNets({ includeSearch = true } = {}) {
   nets = filterByCategory(nets);
   nets = filterByDay(nets);
   nets = filterByBand(nets);
+  nets = filterByFavorites(nets);
   if (includeSearch) nets = filterBySearch(nets);
   return nets;
 }
@@ -163,7 +213,7 @@ function createNetCard(net, status, timeInfo = "") {
   return `
 <div class="next-net-card ${status}">
   <div>
-    <div class="net-name">${esc(net["Name Of Net"])}<span>@ ${esc(net["Time CST"])} CST</span></div>
+    <div class="net-name">${favStarHtml(net)}${esc(net["Name Of Net"])}<span>@ ${esc(net["Time CST"])} CST</span></div>
     <div class="net-sponsor">Sponsor: <a href="${esc(net.Website || "#")}">${esc(net.Sponsor || "—")}</a></div>
     <div class="net-location">${esc(net.Location || "")}</div>
     <div class="next-net-details">
@@ -350,6 +400,7 @@ function anyFilterActive() {
     categoryFilter !== "all" ||
     dayFilter !== "all" ||
     bandFilter !== "all" ||
+    favoritesOnly ||
     searchQuery !== ""
   );
 }
@@ -403,7 +454,7 @@ function renderTable() {
 <tr class="${live ? "row-live" : ""}">
   <td data-label="Day">${esc(net.Day || "")}</td>
   <td class="cell-mono" data-label="Time CST">${esc(net["Time CST"] || "")}</td>
-  <td class="cell-name" data-label="Net">${esc(net["Name Of Net"] || "")}</td>
+  <td class="cell-name" data-label="Net">${favStarHtml(net)}${esc(net["Name Of Net"] || "")}</td>
   <td data-label="Sponsor">${sponsorCell(net)}</td>
   <td class="cell-mono" data-label="Freq / Link">${connectionCell(net)}</td>
   <td data-label="Band">${net.Band ? `<span class="band-tag">${esc(net.Band)}</span>` : ""}</td>
@@ -489,6 +540,7 @@ function loadStateFromURL() {
   if (params.has("cat")) categoryFilter = params.get("cat");
   if (params.has("day")) dayFilter = params.get("day");
   if (params.has("band")) bandFilter = params.get("band");
+  if (params.has("fav")) favoritesOnly = params.get("fav") === "1";
   if (params.has("q")) searchQuery = params.get("q");
   if (params.has("sort")) sortKey = params.get("sort");
   if (params.has("dir")) sortDir = params.get("dir") === "desc" ? "desc" : "asc";
@@ -500,6 +552,7 @@ function syncStateToURL() {
   if (categoryFilter !== "all") params.set("cat", categoryFilter);
   if (dayFilter !== "all") params.set("day", dayFilter);
   if (bandFilter !== "all") params.set("band", bandFilter);
+  if (favoritesOnly) params.set("fav", "1");
   if (searchQuery) params.set("q", searchQuery);
   if (sortKey) {
     params.set("sort", sortKey);
@@ -606,6 +659,7 @@ async function attemptLoad() {
 }
 
 function init() {
+  loadFavorites();
   displayCSTTime();
   setInterval(displayCSTTime, 1000);
   setInterval(refreshAll, 60000);
@@ -650,6 +704,33 @@ function initUI() {
       refreshAll();
       syncStateToURL();
     });
+  });
+
+  // Favorites toggle
+  const favToggleBtn = document.getElementById("favorites-toggle-btn");
+  updateFavoritesCount();
+  if (favToggleBtn) {
+    favToggleBtn.setAttribute("aria-pressed", String(favoritesOnly));
+    favToggleBtn.addEventListener("click", () => {
+      favoritesOnly = !favoritesOnly;
+      favToggleBtn.setAttribute("aria-pressed", String(favoritesOnly));
+      refreshAll();
+      syncStateToURL();
+    });
+  }
+
+  // Favorite-star clicks (event delegation, since rows/cards are re-rendered)
+  document.getElementById("nets-tbody")?.addEventListener("click", (e) => {
+    const btn = e.target.closest(".fav-star");
+    if (!btn) return;
+    toggleFavorite(btn.dataset.favId);
+    refreshAll();
+  });
+  document.getElementById("next-net")?.addEventListener("click", (e) => {
+    const btn = e.target.closest(".fav-star");
+    if (!btn) return;
+    toggleFavorite(btn.dataset.favId);
+    refreshAll();
   });
 
   // Category chips
@@ -705,12 +786,14 @@ function initUI() {
       categoryFilter = "all";
       dayFilter = "all";
       bandFilter = "all";
+      favoritesOnly = false;
       searchQuery = "";
       if (searchInput) searchInput.value = "";
       updateLocationChips();
       updateCategoryChips();
       updateDayChips();
       updateBandChips();
+      favToggleBtn?.setAttribute("aria-pressed", "false");
       refreshAll();
       syncStateToURL();
       resetBtn.blur();
