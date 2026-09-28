@@ -764,6 +764,109 @@ th[aria-sort="descending"] .th-btn::after {
 }
 
 /* ---------------------------------- */
+/* schedule table - mobile stacked cards */
+/* ---------------------------------- */
+
+@media (max-width: 767px) {
+  .nets-table {
+    min-width: 0;
+  }
+
+  .nets-table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .nets-table,
+  .nets-table tbody,
+  .nets-table tbody tr {
+    display: block;
+    width: 100%;
+  }
+
+  .nets-table tbody {
+    padding: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .nets-table tbody tr {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border-strong);
+    border-radius: 0.4rem;
+    padding: 1rem 1.1rem;
+    background-color: var(--bg-1);
+  }
+
+  .nets-table tbody tr:nth-child(even) {
+    background-color: var(--bg-1);
+  }
+
+  .nets-table tbody tr.row-live {
+    border-color: var(--orange);
+    box-shadow: 0 0 0 1px rgba(255, 106, 26, 0.25);
+  }
+
+  .nets-table td {
+    display: flex;
+    width: 100%;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.5rem 0.1rem;
+    border-bottom: 1px solid var(--border);
+    white-space: normal;
+    text-align: right;
+  }
+
+  .nets-table td:last-child {
+    border-bottom: none;
+  }
+
+  .nets-table td::before {
+    content: attr(data-label);
+    font-family: var(--font-display);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-3);
+    flex-shrink: 0;
+    text-align: left;
+  }
+
+  .nets-table td.cell-name {
+    order: -1;
+    font-size: 1.05rem;
+    padding-top: 0;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.35rem;
+    border-bottom: 1px solid var(--border-strong);
+    text-align: left;
+  }
+
+  .nets-table td.cell-name::before {
+    content: none;
+  }
+
+  .cell-connect {
+    max-width: none;
+    text-align: right;
+    white-space: normal;
+    word-break: break-word;
+  }
+}
+
+/* ---------------------------------- */
 /* footer                              */
 /* ---------------------------------- */
 

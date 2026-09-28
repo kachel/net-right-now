@@ -362,13 +362,13 @@ function renderTable() {
       const live = isNetLiveNow(net);
       return `
 <tr class="${live ? "row-live" : ""}">
-  <td>${esc(net.Day || "")}</td>
-  <td class="cell-mono">${esc(net["Time CST"] || "")}</td>
-  <td class="cell-name">${esc(net["Name Of Net"] || "")}</td>
-  <td>${sponsorCell(net)}</td>
-  <td class="cell-mono">${connectionCell(net)}</td>
-  <td>${net.Band ? `<span class="band-tag">${esc(net.Band)}</span>` : ""}</td>
-  <td>${esc(net.Location || "")}</td>
+  <td data-label="Day">${esc(net.Day || "")}</td>
+  <td class="cell-mono" data-label="Time CST">${esc(net["Time CST"] || "")}</td>
+  <td class="cell-name" data-label="Net">${esc(net["Name Of Net"] || "")}</td>
+  <td data-label="Sponsor">${sponsorCell(net)}</td>
+  <td class="cell-mono" data-label="Freq / Link">${connectionCell(net)}</td>
+  <td data-label="Band">${net.Band ? `<span class="band-tag">${esc(net.Band)}</span>` : ""}</td>
+  <td data-label="Location">${esc(net.Location || "")}</td>
 </tr>`;
     })
     .join("");
