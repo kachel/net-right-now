@@ -1,171 +1,29 @@
+const DAYS_OF_WEEK = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+const DAY_CHIPS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Daily"];
+const BAND_ORDER = ["10m", "6m", "2m", "1.25m", "70cm", "40m", "80m", "160m"];
+
+let allNets = [];
 let netsVisible = true;
 let locationFilter = "all"; // 'chicago', 'chicagoland', or 'all'
+let dayFilter = "all";
+let bandFilter = "all";
+let searchQuery = "";
+let sortKey = null;
+let sortDir = "asc";
 
-function setLocationFilter(filter) {
-  locationFilter = filter;
-  const filterBtns = document.querySelectorAll(".location-filter-btn");
-  filterBtns.forEach((btn) => {
-    btn.classList.remove("active");
-    if (btn.dataset.filter === filter) {
-      btn.classList.add("active");
-    }
-  });
-  // Only update the upcoming nets (next-net). Do NOT re-render the all-nets container.
-  updateNextNetDisplay();
-}
+const esc = (s) =>
+  String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
 
-function toggleNetsVisibility() {
-  netsVisible = !netsVisible;
-  const container = document.querySelector(".nets-container") || document.getElementById("nets");
-  const toggleBtn = document.getElementById("toggle-nets-btn");
+/* ---------------------------------- */
+/* time helpers                        */
+/* ---------------------------------- */
 
-  if (container) {
-    container.style.display = netsVisible ? "flex" : "none";
-  }
-
-  if (toggleBtn) {
-    toggleBtn.textContent = netsVisible ? "Hide All Nets" : "Show All Nets";
-    toggleBtn.setAttribute("aria-pressed", netsVisible);
-  }
-}
-
-// Attach click listener to toggle button
-document.addEventListener("DOMContentLoaded", function () {
-  const toggleBtn = document.getElementById("toggle-nets-btn");
-  if (toggleBtn) {
-    toggleBtn.addEventListener("click", toggleNetsVisibility);
-  }
-
-  // Attach location filter listeners
-  const filterBtns = document.querySelectorAll(".location-filter-btn");
-  filterBtns.forEach((btn) => {
-    btn.addEventListener("click", function () {
-      setLocationFilter(this.dataset.filter);
-    });
-  });
-
-  // Set initial active button
-  document.querySelector('[data-filter="all"]')?.classList.add("active");
-});
-
-// Filter nets by location
-function filterNetsByLocation(nets) {
-  if (locationFilter === "chicago") {
-    return nets.filter((net) => net.Location && net.Location.toLowerCase().includes("chicago"));
-  } else if (locationFilter === "chicagoland") {
-    return nets.filter((net) => !net.Location || !net.Location.toLowerCase().includes("chicago"));
-  }
-  return nets;
-}
-
-// GET NETS
-async function renderNetsFromJson() {
-  try {
-    const res = await fetch("./chicago-area-nets.json");
-    if (!res.ok) throw new Error(res.statusText);
-    let data = await res.json();
-
-    // NOTE: Do NOT apply the locationFilter here — keep the nets-container unfiltered.
-    // data = filterNetsByLocation(data); <-- removed
-
-    const container = document.querySelector(".nets-container") || document.getElementById("nets");
-    if (!container) return;
-    container.innerHTML = "";
-
-    const esc = (s) =>
-      String(s ?? "").replace(
-        /[&<>"']/g,
-        (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c],
-      );
-
-    data.forEach((item) => {
-      const net = document.createElement("div");
-      net.className = "net";
-
-      const title = document.createElement("h2");
-      title.className = "name title";
-      title.textContent = item["Name Of Net"] || item.Name || "";
-      net.appendChild(title);
-
-      const inner = document.createElement("div");
-      inner.className = "net-container";
-
-      Object.entries(item).forEach(([key, val]) => {
-        if (key === "ID" || key === "Name Of Net") return;
-
-        const fieldClass = key
-          .toLowerCase()
-          .replace(/\s+/g, "-")
-          .replace(/[^a-z0-9\-]/g, "");
-        const field = document.createElement("div");
-        field.className = fieldClass;
-
-        const label = document.createElement("div");
-        label.className = `${fieldClass}-label`;
-        label.innerHTML = esc(key) + ":&nbsp;";
-
-        const info = document.createElement("div");
-        info.className = ` ${fieldClass}-info`;
-
-        const text = String(val ?? "").trim();
-        if (key.toLowerCase().includes("site") || /^https?:\/\//i.test(text)) {
-          if (text) {
-            const a = document.createElement("a");
-            a.href = text.startsWith("http") ? text : "https://" + text;
-            a.textContent = text;
-            a.target = "_blank";
-            info.appendChild(a);
-          } else {
-            info.textContent = "";
-          }
-        } else {
-          info.textContent = text;
-        }
-
-        field.appendChild(label);
-        field.appendChild(info);
-        inner.appendChild(field);
-      });
-
-      net.appendChild(inner);
-      container.appendChild(net);
-    });
-  } catch (err) {
-    const errEl = document.getElementById("nets") || document.body;
-    errEl.textContent = "Error: " + err.message;
-  }
-}
-
-//   TIME
-
-function displayCSTTime() {
-  const now = new Date();
-
-  const options = {
-    timeZone: "America/Chicago",
-    hour: "numeric",
-    minute: "numeric",
-    second: "numeric",
-    hour12: true,
-    timeZoneName: "short",
-  };
-
-  const cstTime = now.toLocaleString("en-US", options);
-
-  document.getElementById("cst-time").textContent = cstTime;
-}
-
-displayCSTTime();
-
-setInterval(displayCSTTime, 1000);
-
-// Get CST Time Helper
 function getCSTTime() {
   return new Date(new Date().toLocaleString("en-US", { timeZone: "America/Chicago" }));
 }
 
 function timeToMinutes(timeStr) {
-  const match = timeStr.match(/(\d{1,2}):(\d{2})(AM|PM)/i);
+  const match = String(timeStr ?? "").match(/(\d{1,2}):(\d{2})(AM|PM)/i);
   if (!match) return null;
 
   let hours = parseInt(match[1]);
@@ -179,38 +37,96 @@ function timeToMinutes(timeStr) {
 }
 
 function runsOnDay(dayStr, dayNum) {
-  const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-  const day = daysOfWeek[dayNum];
+  const day = DAYS_OF_WEEK[dayNum];
+  if (!dayStr) return false;
 
   if (dayStr === "Daily") return true;
   if (dayStr === day) return true;
   if (dayStr === "Weekdays") return dayNum >= 1 && dayNum <= 5;
   if (dayStr.includes("-")) {
     const [start, end] = dayStr.split("-").map((d) => d.trim());
-    const startIdx = daysOfWeek.indexOf(start);
-    const endIdx = daysOfWeek.indexOf(end);
-    return dayNum >= startIdx && dayNum <= endIdx;
+    const startIdx = DAYS_OF_WEEK.indexOf(start);
+    const endIdx = DAYS_OF_WEEK.indexOf(end);
+    if (startIdx !== -1 && endIdx !== -1 && dayNum >= startIdx && dayNum <= endIdx) return true;
   }
 
-  return false;
+  // Fallback for irregular schedules like "1st Thursday", "4th Wednesday",
+  // "First & Third Tuesday" — match on the weekday name appearing anywhere.
+  return dayStr.toLowerCase().includes(day.toLowerCase());
 }
 
-// Next Net Finder
+function displayCSTTime() {
+  const now = new Date();
+  const options = {
+    timeZone: "America/Chicago",
+    hour: "numeric",
+    minute: "numeric",
+    second: "numeric",
+    hour12: true,
+    timeZoneName: "short",
+  };
+  const el = document.getElementById("cst-time");
+  if (el) el.textContent = now.toLocaleString("en-US", options);
+}
 
-async function getNextNet() {
-  const res = await fetch("./chicago-area-nets.json");
-  let nets = await res.json();
+/* ---------------------------------- */
+/* filtering                           */
+/* ---------------------------------- */
 
-  // Apply location filter
-  nets = filterNetsByLocation(nets);
+function filterByLocation(nets) {
+  if (locationFilter === "chicago") {
+    return nets.filter((net) => net.Location && net.Location.toLowerCase().includes("chicago"));
+  } else if (locationFilter === "chicagoland") {
+    return nets.filter((net) => !net.Location || !net.Location.toLowerCase().includes("chicago"));
+  }
+  return nets;
+}
 
+function filterByDay(nets) {
+  if (dayFilter === "all") return nets;
+  if (dayFilter === "Daily") return nets.filter((net) => net.Day === "Daily");
+  const dayNum = DAYS_OF_WEEK.indexOf(dayFilter);
+  if (dayNum === -1) return nets;
+  return nets.filter((net) => runsOnDay(net.Day, dayNum));
+}
+
+function filterByBand(nets) {
+  if (bandFilter === "all") return nets;
+  return nets.filter((net) => net.Band === bandFilter);
+}
+
+function filterBySearch(nets) {
+  if (!searchQuery) return nets;
+  const q = searchQuery.toLowerCase();
+  return nets.filter((net) => {
+    const name = (net["Name Of Net"] || "").toLowerCase();
+    const sponsor = (net.Sponsor || "").toLowerCase();
+    return name.includes(q) || sponsor.includes(q);
+  });
+}
+
+function getFilteredNets({ includeSearch = true } = {}) {
+  let nets = allNets;
+  nets = filterByLocation(nets);
+  nets = filterByDay(nets);
+  nets = filterByBand(nets);
+  if (includeSearch) nets = filterBySearch(nets);
+  return nets;
+}
+
+/* ---------------------------------- */
+/* next net / status panel             */
+/* ---------------------------------- */
+
+function getNextNetGroups() {
+  const nets = filterByLocation(allNets);
   const cstTime = getCSTTime();
   const today = cstTime.getDay();
   const currentMinutes = cstTime.getHours() * 60 + cstTime.getMinutes();
 
-  let happeningNets = [];
-  let likelyHappeningNets = [];
-  let upcomingNets = [];
+  const happeningNets = [];
+  const likelyHappeningNets = [];
+  const upcomingNets = [];
 
   nets.forEach((net) => {
     if (net["Name Of Net"] && runsOnDay(net.Day, today)) {
@@ -218,55 +134,62 @@ async function getNextNet() {
       if (netMinutes !== null) {
         const timeDiff = currentMinutes - netMinutes;
 
-        // Net started within last 30 minutes - HAPPENING
         if (timeDiff >= 0 && timeDiff <= 30) {
           happeningNets.push({ net, timeDiff, minutesUntil: -timeDiff });
-        }
-        // Net started within last hour - LIKELY HAPPENING
-        else if (timeDiff > 30 && timeDiff < 60) {
+        } else if (timeDiff > 30 && timeDiff < 60) {
           likelyHappeningNets.push({ net, timeDiff, minutesUntil: -timeDiff });
-        }
-        // Net is in the future - UPCOMING
-        else if (timeDiff < 0) {
+        } else if (timeDiff < 0) {
           upcomingNets.push({ net, timeDiff, minutesUntil: -timeDiff });
         }
       }
     }
   });
 
-  // Sort upcoming nets by time until they start
   upcomingNets.sort((a, b) => a.minutesUntil - b.minutesUntil);
 
   return { happeningNets, likelyHappeningNets, upcomingNets };
 }
 
-async function displayNextNet() {
-  const { happeningNets, likelyHappeningNets, upcomingNets } = await getNextNet();
-  const container = document.getElementById("next-net");
+function createNetCard(net, status, timeInfo = "") {
+  return `
+<div class="next-net-card ${status}">
+  <div>
+    <div class="net-name">${esc(net["Name Of Net"])}<span>@ ${esc(net["Time CST"])} CST</span></div>
+    <div class="net-sponsor">Sponsor: <a href="${esc(net.Website || "#")}">${esc(net.Sponsor || "—")}</a></div>
+    <div class="net-location">${esc(net.Location || "")}</div>
+    <div class="next-net-details">
+      <span>Freq: <strong>${esc(net.Frequency || "—")}</strong></span>
+      <span>Offset: <strong>${esc(net.Offset || "—")}</strong></span>
+      <span>PL: <strong>${esc(net["PL Tone"] || "None")}</strong></span>
+    </div>
+  </div>
+  ${timeInfo ? `<div class="net-countdown">Starts in<strong>${timeInfo}</strong></div>` : ""}
+</div>`;
+}
 
+function displayNextNet() {
+  const { happeningNets, likelyHappeningNets, upcomingNets } = getNextNetGroups();
+  const container = document.getElementById("next-net");
   if (!container) return;
 
   let html = "";
 
-  // Display happening nets
   if (happeningNets.length > 0) {
-    html += `<h3 class="net-status happening title">🔴 Happening Now</h3>`;
+    html += `<h3 class="status-group-heading"><span class="led led-live"></span>Happening Now</h3>`;
     happeningNets.forEach(({ net }) => {
       html += createNetCard(net, "happening");
     });
   }
 
-  // Display likely happening nets
   if (likelyHappeningNets.length > 0) {
-    html += `<h3 class="net-status likely title">🟡 Likely Happening</h3>`;
+    html += `<h3 class="status-group-heading"><span class="led led-likely"></span>Likely Happening</h3>`;
     likelyHappeningNets.forEach(({ net }) => {
       html += createNetCard(net, "likely");
     });
   }
 
-  // Display upcoming nets
   if (upcomingNets.length > 0) {
-    html += `<h3 class="net-status upcoming title">🟢 Upcoming</h3>`;
+    html += `<h3 class="status-group-heading"><span class="led led-upcoming"></span>Upcoming</h3>`;
     const { net, minutesUntil } = upcomingNets[0];
     const hours = Math.floor(minutesUntil / 60);
     const minutes = minutesUntil % 60;
@@ -274,61 +197,303 @@ async function displayNextNet() {
   }
 
   if (html === "") {
-    html = "<p>No nets found for selected location</p>";
+    html = `<p class="status-empty">No nets found for the selected area right now.</p>`;
   }
 
   container.innerHTML = html;
-  updateCountdown();
 }
 
-function createNetCard(net, status, timeInfo = "") {
-  return `
-<div class="next-net-card ${status}">
-  <div class="net-name">${net["Name Of Net"]}<span> @ ${net["Time CST"]} CST</span></div>
-  <div class="net-sponsor">
-    Sponsor: 
-    <a class="dark-link" href="${net.Website}">${net.Sponsor}</a>
-  </div>
-  <div>${net.Location || ""}</div>
-  <div class="next-net-details">
-    <div class="net-frequency">Frequency: ${net.Frequency}&nbsp;</div>
-    <div class="net-offset">Offset: ${net.Offset || ""}&nbsp;</div>
-    <div class="net-pl">PL: ${net["PL Tone"] || "None"}&nbsp;</div>
-  </div>
-  ${
-    timeInfo
-      ? `
-  <div class="net-countdown">Starts in: <strong>${timeInfo}</strong></div>
-  `
-      : ""
+/* ---------------------------------- */
+/* schedule table                      */
+/* ---------------------------------- */
+
+function isNetLiveNow(net) {
+  const cstTime = getCSTTime();
+  const today = cstTime.getDay();
+  const currentMinutes = cstTime.getHours() * 60 + cstTime.getMinutes();
+
+  if (!net["Name Of Net"] || !runsOnDay(net.Day, today)) return false;
+  const netMinutes = timeToMinutes(net["Time CST"]);
+  if (netMinutes === null) return false;
+  const timeDiff = currentMinutes - netMinutes;
+  return timeDiff >= 0 && timeDiff <= 30;
+}
+
+function dayForSort(dayStr) {
+  if (!dayStr) return 99;
+  if (dayStr === "Daily") return -1;
+  if (dayStr === "Weekdays") return 1;
+  for (let i = 0; i < DAYS_OF_WEEK.length; i++) {
+    if (dayStr.toLowerCase().includes(DAYS_OF_WEEK[i].toLowerCase())) return i;
   }
-</div>
-  `;
+  return 99;
 }
 
-// Update next net display and countdown
-async function updateNextNetDisplay() {
-  await displayNextNet();
+function bandForSort(bandStr) {
+  const idx = BAND_ORDER.indexOf(bandStr);
+  return idx === -1 ? 99 : idx;
 }
 
-async function updateCountdown() {
-  const { happeningNets, likelyHappeningNets, upcomingNets } = await getNextNet();
-  const container = document.getElementById("next-net");
+function sortNets(nets) {
+  if (!sortKey) return nets;
+  const sorted = [...nets];
+  const dir = sortDir === "asc" ? 1 : -1;
 
-  if (!container) return;
+  sorted.sort((a, b) => {
+    let av, bv;
+    switch (sortKey) {
+      case "day":
+        av = dayForSort(a.Day);
+        bv = dayForSort(b.Day);
+        if (av === bv) {
+          av = timeToMinutes(a["Time CST"]) ?? 0;
+          bv = timeToMinutes(b["Time CST"]) ?? 0;
+        }
+        break;
+      case "time":
+        av = timeToMinutes(a["Time CST"]) ?? 0;
+        bv = timeToMinutes(b["Time CST"]) ?? 0;
+        break;
+      case "band":
+        av = bandForSort(a.Band);
+        bv = bandForSort(b.Band);
+        break;
+      case "name":
+        av = (a["Name Of Net"] || "").toLowerCase();
+        bv = (b["Name Of Net"] || "").toLowerCase();
+        break;
+      case "sponsor":
+        av = (a.Sponsor || "").toLowerCase();
+        bv = (b.Sponsor || "").toLowerCase();
+        break;
+      case "frequency":
+        av = parseFloat(a.Frequency) || 0;
+        bv = parseFloat(b.Frequency) || 0;
+        break;
+      case "location":
+        av = (a.Location || "").toLowerCase();
+        bv = (b.Location || "").toLowerCase();
+        break;
+      default:
+        av = 0;
+        bv = 0;
+    }
+    if (av < bv) return -1 * dir;
+    if (av > bv) return 1 * dir;
+    return 0;
+  });
 
-  // Update countdown for upcoming nets
-  upcomingNets.forEach(({ net, minutesUntil }, index) => {
-    const countdownElements = container.querySelectorAll(".net-countdown strong");
-    if (countdownElements[index]) {
-      const hours = Math.floor(minutesUntil / 60);
-      const minutes = minutesUntil % 60;
-      countdownElements[index].textContent = `${hours}h ${minutes}m`;
+  return sorted;
+}
+
+function renderTableHeaderSortState() {
+  document.querySelectorAll(".nets-table th[data-sort]").forEach((th) => {
+    const key = th.dataset.sort;
+    if (key === sortKey) {
+      th.setAttribute("aria-sort", sortDir === "asc" ? "ascending" : "descending");
+    } else {
+      th.removeAttribute("aria-sort");
     }
   });
 }
 
-// Initial display and updates
-renderNetsFromJson();
-updateNextNetDisplay();
-setInterval(updateCountdown, 60000); // Update every minute
+function linkCell(text) {
+  const value = String(text ?? "").trim();
+  if (!value) return "";
+  if (/^https?:\/\//i.test(value)) {
+    return `<a href="${esc(value)}" target="_blank" rel="noopener">${esc(value.replace(/^https?:\/\//i, ""))}</a>`;
+  }
+  return esc(value);
+}
+
+function renderTable() {
+  const tbody = document.getElementById("nets-tbody");
+  const noResults = document.getElementById("no-results");
+  const resultCount = document.getElementById("result-count");
+  if (!tbody) return;
+
+  let nets = getFilteredNets();
+  nets = sortNets(nets);
+
+  if (resultCount) {
+    resultCount.textContent = `${nets.length} net${nets.length === 1 ? "" : "s"}`;
+  }
+
+  if (nets.length === 0) {
+    tbody.innerHTML = "";
+    if (noResults) noResults.hidden = false;
+    return;
+  }
+  if (noResults) noResults.hidden = true;
+
+  tbody.innerHTML = nets
+    .map((net) => {
+      const live = isNetLiveNow(net);
+      return `
+<tr class="${live ? "row-live" : ""}">
+  <td>${esc(net.Day || "")}</td>
+  <td class="cell-mono">${esc(net["Time CST"] || "")}</td>
+  <td class="cell-name">${esc(net["Name Of Net"] || "")}</td>
+  <td>${linkCell(net.Sponsor) || esc(net.Sponsor || "")}</td>
+  <td class="cell-mono">${esc(net.Frequency || "")}</td>
+  <td>${net.Band ? `<span class="band-tag">${esc(net.Band)}</span>` : ""}</td>
+  <td>${esc(net.Location || "")}</td>
+</tr>`;
+    })
+    .join("");
+
+  renderTableHeaderSortState();
+}
+
+/* ---------------------------------- */
+/* filter chip UI                      */
+/* ---------------------------------- */
+
+function buildChipGroup(container, values, current, onSelect) {
+  container.innerHTML = "";
+
+  const allBtn = document.createElement("button");
+  allBtn.type = "button";
+  allBtn.className = "chip";
+  allBtn.textContent = "All";
+  allBtn.dataset.value = "all";
+  container.appendChild(allBtn);
+
+  values.forEach((value) => {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "chip";
+    btn.textContent = value;
+    btn.dataset.value = value;
+    container.appendChild(btn);
+  });
+
+  const updateActive = () => {
+    container.querySelectorAll(".chip").forEach((btn) => {
+      btn.classList.toggle("active", btn.dataset.value === current());
+    });
+  };
+
+  container.querySelectorAll(".chip").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      onSelect(btn.dataset.value);
+      updateActive();
+    });
+  });
+
+  updateActive();
+  return updateActive;
+}
+
+function getUniqueBands() {
+  const found = new Set();
+  allNets.forEach((net) => {
+    if (net.Band) found.add(net.Band);
+  });
+  const ordered = BAND_ORDER.filter((b) => found.has(b));
+  const extras = [...found].filter((b) => !BAND_ORDER.includes(b)).sort();
+  return [...ordered, ...extras];
+}
+
+/* ---------------------------------- */
+/* toggle / render orchestration       */
+/* ---------------------------------- */
+
+function toggleNetsVisibility() {
+  netsVisible = !netsVisible;
+  const wrap = document.getElementById("nets-table-wrap");
+  const toggleBtn = document.getElementById("toggle-nets-btn");
+
+  if (wrap) wrap.style.display = netsVisible ? "block" : "none";
+  if (toggleBtn) {
+    toggleBtn.textContent = netsVisible ? "Hide Schedule" : "Show Schedule";
+    toggleBtn.setAttribute("aria-pressed", String(netsVisible));
+    toggleBtn.setAttribute("aria-expanded", String(netsVisible));
+  }
+}
+
+function refreshAll() {
+  displayNextNet();
+  renderTable();
+}
+
+async function init() {
+  displayCSTTime();
+  setInterval(displayCSTTime, 1000);
+  setInterval(refreshAll, 60000);
+
+  try {
+    const res = await fetch("./chicago-area-nets.json");
+    if (!res.ok) throw new Error(res.statusText);
+    allNets = await res.json();
+  } catch (err) {
+    const errEl = document.getElementById("next-net") || document.body;
+    errEl.textContent = "Error loading nets: " + err.message;
+    return;
+  }
+
+  // Location chips
+  const filterBtns = document.querySelectorAll(".location-filter-btn");
+  filterBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      locationFilter = btn.dataset.filter;
+      filterBtns.forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+      refreshAll();
+    });
+  });
+  document.querySelector('[data-filter="all"]')?.classList.add("active");
+
+  // Day chips
+  buildChipGroup(
+    document.getElementById("day-filter-group"),
+    DAY_CHIPS,
+    () => dayFilter,
+    (value) => {
+      dayFilter = value;
+      renderTable();
+    },
+  );
+
+  // Band chips
+  buildChipGroup(
+    document.getElementById("band-filter-group"),
+    getUniqueBands(),
+    () => bandFilter,
+    (value) => {
+      bandFilter = value;
+      renderTable();
+    },
+  );
+
+  // Search
+  const searchInput = document.getElementById("search-input");
+  if (searchInput) {
+    searchInput.addEventListener("input", () => {
+      searchQuery = searchInput.value.trim();
+      renderTable();
+    });
+  }
+
+  // Sortable headers
+  document.querySelectorAll(".nets-table th[data-sort] .th-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const key = btn.parentElement.dataset.sort;
+      if (sortKey === key) {
+        sortDir = sortDir === "asc" ? "desc" : "asc";
+      } else {
+        sortKey = key;
+        sortDir = "asc";
+      }
+      renderTable();
+    });
+  });
+
+  // Show/hide schedule
+  const toggleBtn = document.getElementById("toggle-nets-btn");
+  if (toggleBtn) toggleBtn.addEventListener("click", toggleNetsVisibility);
+
+  refreshAll();
+}
+
+document.addEventListener("DOMContentLoaded", init);
