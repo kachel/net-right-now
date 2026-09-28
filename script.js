@@ -4,6 +4,8 @@ const BAND_ORDER = ["10m", "6m", "2m", "1.25m", "70cm", "40m", "80m", "160m"];
 const NON_HAM_BANDS = ["GMRS", "Internet"];
 const CATEGORY_ORDER = ["Amateur Radio", "GMRS", "Internet"];
 
+const FAVORITES_KEY = "chz-favorites";
+
 let allNets = [];
 let netsVisible = true;
 let locationFilter = "all"; // 'chicago', 'chicagoland', or 'all'
@@ -13,6 +15,8 @@ let bandFilter = "all";
 let searchQuery = "";
 let sortKey = null;
 let sortDir = "asc";
+let favorites = new Set();
+let favoritesOnly = false;
 
 const esc = (s) =>
   String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
@@ -103,6 +107,51 @@ function filterByBand(nets) {
   return nets.filter((net) => net.Band === bandFilter);
 }
 
+function loadFavorites() {
+  try {
+    const raw = localStorage.getItem(FAVORITES_KEY);
+    favorites = new Set(raw ? JSON.parse(raw) : []);
+  } catch {
+    favorites = new Set();
+  }
+}
+
+function saveFavorites() {
+  try {
+    localStorage.setItem(FAVORITES_KEY, JSON.stringify([...favorites]));
+  } catch {
+    // localStorage unavailable (private browsing, storage full) — favorites just won't persist
+  }
+}
+
+function isFavorite(net) {
+  return favorites.has(String(net.ID));
+}
+
+function toggleFavorite(id) {
+  id = String(id);
+  if (favorites.has(id)) favorites.delete(id);
+  else favorites.add(id);
+  saveFavorites();
+  updateFavoritesCount();
+}
+
+function updateFavoritesCount() {
+  const label = document.getElementById("favorites-toggle-label");
+  if (label) label.textContent = favorites.size > 0 ? `Favorites (${favorites.size})` : "Favorites";
+}
+
+function favStarHtml(net) {
+  const fav = isFavorite(net);
+  const label = fav ? "Remove from favorites" : "Add to favorites";
+  return `<button type="button" class="fav-star${fav ? " active" : ""}" data-fav-id="${esc(net.ID)}" aria-pressed="${fav}" aria-label="${label}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l2.5 5.6 6.1.6-4.6 4.1 1.4 6-5.4-3.2-5.4 3.2 1.4-6-4.6-4.1 6.1-.6z" /></svg></button>`;
+}
+
+function filterByFavorites(nets) {
+  if (!favoritesOnly) return nets;
+  return nets.filter((net) => isFavorite(net));
+}
+
 function filterBySearch(nets) {
   if (!searchQuery) return nets;
   const q = searchQuery.toLowerCase();
@@ -119,6 +168,7 @@ function getFilteredNets({ includeSearch = true } = {}) {
   nets = filterByCategory(nets);
   nets = filterByDay(nets);
   nets = filterByBand(nets);
+  nets = filterByFavorites(nets);
   if (includeSearch) nets = filterBySearch(nets);
   return nets;
 }
@@ -128,7 +178,7 @@ function getFilteredNets({ includeSearch = true } = {}) {
 /* ---------------------------------- */
 
 function getNextNetGroups() {
-  const nets = filterByLocation(allNets);
+  const nets = getFilteredNets();
   const cstTime = getCSTTime();
   const today = cstTime.getDay();
   const currentMinutes = cstTime.getHours() * 60 + cstTime.getMinutes();
@@ -163,7 +213,7 @@ function createNetCard(net, status, timeInfo = "") {
   return `
 <div class="next-net-card ${status}">
   <div>
-    <div class="net-name">${esc(net["Name Of Net"])}<span>@ ${esc(net["Time CST"])} CST</span></div>
+    <div class="net-name">${favStarHtml(net)}${esc(net["Name Of Net"])}<span>@ ${esc(net["Time CST"])} CST</span></div>
     <div class="net-sponsor">Sponsor: <a href="${esc(net.Website || "#")}">${esc(net.Sponsor || "—")}</a></div>
     <div class="net-location">${esc(net.Location || "")}</div>
     <div class="next-net-details">
@@ -306,11 +356,21 @@ function renderTableHeaderSortState() {
   });
 }
 
+const URL_PREFIX_RE = /^https?:\/\//i;
+
+function toHref(url) {
+  return URL_PREFIX_RE.test(url) ? url : `https://${url}`;
+}
+
+function renderLink(href, label) {
+  return `<a href="${esc(toHref(href))}" target="_blank" rel="noopener">${esc(label)}</a>`;
+}
+
 function linkCell(text) {
   const value = String(text ?? "").trim();
   if (!value) return "";
-  if (/^https?:\/\//i.test(value)) {
-    return `<a href="${esc(value)}" target="_blank" rel="noopener">${esc(value.replace(/^https?:\/\//i, ""))}</a>`;
+  if (URL_PREFIX_RE.test(value)) {
+    return renderLink(value, value.replace(URL_PREFIX_RE, ""));
   }
   return esc(value);
 }
@@ -319,10 +379,7 @@ function sponsorCell(net) {
   const sponsor = String(net.Sponsor ?? "").trim();
   const website = String(net.Website ?? "").trim();
   const label = sponsor || website || "—";
-  if (website) {
-    const href = /^https?:\/\//i.test(website) ? website : `https://${website}`;
-    return `<a href="${esc(href)}" target="_blank" rel="noopener">${esc(label)}</a>`;
-  }
+  if (website) return renderLink(website, label);
   return linkCell(sponsor) || esc(label);
 }
 
@@ -337,11 +394,43 @@ function connectionCell(net) {
   return `<span class="cell-connect" title="${esc(full)}">${esc(summary)}</span>`;
 }
 
+function anyFilterActive() {
+  return (
+    locationFilter !== "all" ||
+    categoryFilter !== "all" ||
+    dayFilter !== "all" ||
+    bandFilter !== "all" ||
+    favoritesOnly ||
+    searchQuery !== ""
+  );
+}
+
+function updateResetFiltersVisibility() {
+  const resetBtn = document.getElementById("reset-filters-btn");
+  if (resetBtn) resetBtn.hidden = !anyFilterActive();
+}
+
+function fadeSwap(el, updateFn) {
+  if (!el.children.length) {
+    updateFn();
+    return;
+  }
+  el.style.opacity = "0";
+  window.setTimeout(() => {
+    updateFn();
+    requestAnimationFrame(() => {
+      el.style.opacity = "1";
+    });
+  }, 120);
+}
+
 function renderTable() {
   const tbody = document.getElementById("nets-tbody");
   const noResults = document.getElementById("no-results");
   const resultCount = document.getElementById("result-count");
   if (!tbody) return;
+
+  updateResetFiltersVisibility();
 
   let nets = getFilteredNets();
   nets = sortNets(nets);
@@ -350,30 +439,32 @@ function renderTable() {
     resultCount.textContent = `${nets.length} net${nets.length === 1 ? "" : "s"}`;
   }
 
-  if (nets.length === 0) {
-    tbody.innerHTML = "";
-    if (noResults) noResults.hidden = false;
-    return;
-  }
-  if (noResults) noResults.hidden = true;
+  fadeSwap(tbody, () => {
+    if (nets.length === 0) {
+      tbody.innerHTML = "";
+      if (noResults) noResults.hidden = false;
+      return;
+    }
+    if (noResults) noResults.hidden = true;
 
-  tbody.innerHTML = nets
-    .map((net) => {
-      const live = isNetLiveNow(net);
-      return `
+    tbody.innerHTML = nets
+      .map((net) => {
+        const live = isNetLiveNow(net);
+        return `
 <tr class="${live ? "row-live" : ""}">
   <td data-label="Day">${esc(net.Day || "")}</td>
   <td class="cell-mono" data-label="Time CST">${esc(net["Time CST"] || "")}</td>
-  <td class="cell-name" data-label="Net">${esc(net["Name Of Net"] || "")}</td>
+  <td class="cell-name" data-label="Net">${favStarHtml(net)}${esc(net["Name Of Net"] || "")}</td>
   <td data-label="Sponsor">${sponsorCell(net)}</td>
   <td class="cell-mono" data-label="Freq / Link">${connectionCell(net)}</td>
   <td data-label="Band">${net.Band ? `<span class="band-tag">${esc(net.Band)}</span>` : ""}</td>
   <td data-label="Location">${esc(net.Location || "")}</td>
 </tr>`;
-    })
-    .join("");
+      })
+      .join("");
 
-  renderTableHeaderSortState();
+    renderTableHeaderSortState();
+  });
 }
 
 /* ---------------------------------- */
@@ -449,6 +540,7 @@ function loadStateFromURL() {
   if (params.has("cat")) categoryFilter = params.get("cat");
   if (params.has("day")) dayFilter = params.get("day");
   if (params.has("band")) bandFilter = params.get("band");
+  if (params.has("fav")) favoritesOnly = params.get("fav") === "1";
   if (params.has("q")) searchQuery = params.get("q");
   if (params.has("sort")) sortKey = params.get("sort");
   if (params.has("dir")) sortDir = params.get("dir") === "desc" ? "desc" : "asc";
@@ -460,6 +552,7 @@ function syncStateToURL() {
   if (categoryFilter !== "all") params.set("cat", categoryFilter);
   if (dayFilter !== "all") params.set("day", dayFilter);
   if (bandFilter !== "all") params.set("band", bandFilter);
+  if (favoritesOnly) params.set("fav", "1");
   if (searchQuery) params.set("q", searchQuery);
   if (sortKey) {
     params.set("sort", sortKey);
@@ -478,16 +571,50 @@ function debounce(fn, delay) {
   };
 }
 
+function prefersReducedMotion() {
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
+function setDisclosureExpanded(el, expand) {
+  if (!el) return;
+  const inner = el.querySelector(".disclosure-inner") || el;
+
+  if (expand) el.removeAttribute("inert");
+
+  if (prefersReducedMotion()) {
+    el.getAnimations().forEach((a) => a.cancel());
+    el.classList.toggle("expanded", expand);
+    el.style.height = expand ? "auto" : "0px";
+    if (!expand) el.setAttribute("inert", "");
+    return;
+  }
+
+  const startHeight = el.getBoundingClientRect().height;
+  el.getAnimations().forEach((a) => a.cancel());
+  el.classList.toggle("expanded", expand);
+  const endHeight = expand ? inner.scrollHeight : 0;
+
+  el.style.height = `${startHeight}px`;
+  const anim = el.animate([{ height: `${startHeight}px` }, { height: `${endHeight}px` }], {
+    duration: 280,
+    easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+  });
+  anim.onfinish = () => {
+    el.style.height = expand ? "auto" : "0px";
+    if (!expand) el.setAttribute("inert", "");
+  };
+}
+
 /* ---------------------------------- */
 /* toggle / render orchestration       */
 /* ---------------------------------- */
 
 function toggleNetsVisibility() {
   netsVisible = !netsVisible;
-  const wrap = document.getElementById("nets-table-wrap");
+  const wrap = document.getElementById("schedule-disclosure");
   const toggleBtn = document.getElementById("toggle-nets-btn");
 
-  if (wrap) wrap.style.display = netsVisible ? "block" : "none";
+  setDisclosureExpanded(wrap, netsVisible);
   if (toggleBtn) {
     toggleBtn.textContent = netsVisible ? "Hide Schedule" : "Show Schedule";
     toggleBtn.setAttribute("aria-pressed", String(netsVisible));
@@ -500,73 +627,142 @@ function refreshAll() {
   renderTable();
 }
 
-async function init() {
+function renderLoadError() {
+  const container = document.getElementById("next-net");
+  if (!container) return;
+  container.innerHTML = `
+<div class="status-error">
+  <div class="status-error-title">Couldn't load the schedule</div>
+  <p class="status-error-body">The net list didn't come through — check your connection and try again.</p>
+  <button type="button" class="btn-toggle" id="retry-load-btn">Try again</button>
+</div>`;
+  document.getElementById("retry-load-btn")?.addEventListener("click", () => {
+    container.innerHTML = "";
+    attemptLoad();
+  });
+}
+
+async function loadNets() {
+  const res = await fetch("./chicago-area-nets.json");
+  if (!res.ok) throw new Error(res.statusText);
+  allNets = await res.json();
+}
+
+async function attemptLoad() {
+  try {
+    await loadNets();
+  } catch (err) {
+    renderLoadError();
+    return;
+  }
+  initUI();
+}
+
+function init() {
+  loadFavorites();
   displayCSTTime();
   setInterval(displayCSTTime, 1000);
   setInterval(refreshAll, 60000);
+  attemptLoad();
+}
 
-  try {
-    const res = await fetch("./chicago-area-nets.json");
-    if (!res.ok) throw new Error(res.statusText);
-    allNets = await res.json();
-  } catch (err) {
-    const errEl = document.getElementById("next-net") || document.body;
-    errEl.textContent = "Error loading nets: " + err.message;
-    return;
-  }
-
+function initUI() {
   loadStateFromURL();
+
+  // More filters disclosure (Day/Band)
+  const moreFiltersBtn = document.getElementById("more-filters-btn");
+  const moreFiltersPanel = document.getElementById("more-filters");
+  const setMoreFiltersExpanded = (expanded) => {
+    if (!moreFiltersBtn || !moreFiltersPanel) return;
+    moreFiltersBtn.setAttribute("aria-expanded", String(expanded));
+    setDisclosureExpanded(moreFiltersPanel, expanded);
+    moreFiltersBtn.querySelector(".more-filters-btn-label").textContent = expanded
+      ? "Fewer Filters"
+      : "More Filters";
+  };
+  if (moreFiltersBtn) {
+    moreFiltersBtn.addEventListener("click", () => {
+      setMoreFiltersExpanded(moreFiltersBtn.getAttribute("aria-expanded") !== "true");
+    });
+  }
+  if (dayFilter !== "all" || bandFilter !== "all") setMoreFiltersExpanded(true);
 
   // Location chips
   const filterBtns = document.querySelectorAll(".location-filter-btn");
+  const updateLocationChips = () => {
+    filterBtns.forEach((b) => {
+      const isActive = b.dataset.filter === locationFilter;
+      b.classList.toggle("active", isActive);
+      b.setAttribute("aria-pressed", String(isActive));
+    });
+  };
+  updateLocationChips();
   filterBtns.forEach((btn) => {
-    const isActive = btn.dataset.filter === locationFilter;
-    btn.classList.toggle("active", isActive);
-    btn.setAttribute("aria-pressed", String(isActive));
-
     btn.addEventListener("click", () => {
       locationFilter = btn.dataset.filter;
-      filterBtns.forEach((b) => {
-        b.classList.remove("active");
-        b.setAttribute("aria-pressed", "false");
-      });
-      btn.classList.add("active");
-      btn.setAttribute("aria-pressed", "true");
+      updateLocationChips();
       refreshAll();
       syncStateToURL();
     });
   });
 
+  // Favorites toggle
+  const favToggleBtn = document.getElementById("favorites-toggle-btn");
+  updateFavoritesCount();
+  if (favToggleBtn) {
+    favToggleBtn.setAttribute("aria-pressed", String(favoritesOnly));
+    favToggleBtn.addEventListener("click", () => {
+      favoritesOnly = !favoritesOnly;
+      favToggleBtn.setAttribute("aria-pressed", String(favoritesOnly));
+      refreshAll();
+      syncStateToURL();
+    });
+  }
+
+  // Favorite-star clicks (event delegation, since rows/cards are re-rendered)
+  document.getElementById("nets-tbody")?.addEventListener("click", (e) => {
+    const btn = e.target.closest(".fav-star");
+    if (!btn) return;
+    toggleFavorite(btn.dataset.favId);
+    refreshAll();
+  });
+  document.getElementById("next-net")?.addEventListener("click", (e) => {
+    const btn = e.target.closest(".fav-star");
+    if (!btn) return;
+    toggleFavorite(btn.dataset.favId);
+    refreshAll();
+  });
+
   // Category chips
-  buildChipGroup(
+  const updateCategoryChips = buildChipGroup(
     document.getElementById("category-filter-group"),
     getUniqueCategories(),
     () => categoryFilter,
     (value) => {
       categoryFilter = value;
-      renderTable();
+      refreshAll();
     },
   );
 
   // Day chips
-  buildChipGroup(
+  const updateDayChips = buildChipGroup(
     document.getElementById("day-filter-group"),
     DAY_CHIPS,
     () => dayFilter,
     (value) => {
       dayFilter = value;
-      renderTable();
+      refreshAll();
     },
   );
 
   // Band chips
-  buildChipGroup(
+  const updateBandChips = buildChipGroup(
     document.getElementById("band-filter-group"),
     getUniqueBands(),
     () => bandFilter,
     (value) => {
       bandFilter = value;
-      renderTable();
+      refreshAll();
     },
   );
 
@@ -576,10 +772,32 @@ async function init() {
     searchInput.value = searchQuery;
     const debouncedSearch = debounce(() => {
       searchQuery = searchInput.value.trim();
-      renderTable();
+      refreshAll();
       syncStateToURL();
     }, 150);
     searchInput.addEventListener("input", debouncedSearch);
+  }
+
+  // Reset filters
+  const resetBtn = document.getElementById("reset-filters-btn");
+  if (resetBtn) {
+    resetBtn.addEventListener("click", () => {
+      locationFilter = "all";
+      categoryFilter = "all";
+      dayFilter = "all";
+      bandFilter = "all";
+      favoritesOnly = false;
+      searchQuery = "";
+      if (searchInput) searchInput.value = "";
+      updateLocationChips();
+      updateCategoryChips();
+      updateDayChips();
+      updateBandChips();
+      favToggleBtn?.setAttribute("aria-pressed", "false");
+      refreshAll();
+      syncStateToURL();
+      resetBtn.blur();
+    });
   }
 
   // Sortable headers

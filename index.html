@@ -162,6 +162,24 @@
               Chicagoland
             </button>
           </div>
+
+          <button
+            type="button"
+            id="favorites-toggle-btn"
+            class="chip favorites-toggle-btn"
+            aria-pressed="false"
+          >
+            <svg
+              class="fav-toggle-star"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path
+                d="M12 3.5l2.5 5.6 6.1.6-4.6 4.1 1.4 6-5.4-3.2-5.4 3.2 1.4-6-4.6-4.1 6.1-.6z"
+              />
+            </svg>
+            <span id="favorites-toggle-label">Favorites</span>
+          </button>
         </div>
 
         <div class="controls-row">
@@ -174,24 +192,52 @@
           ></div>
         </div>
 
-        <div class="controls-row">
-          <span class="controls-label">Day</span>
-          <div
-            class="chip-group"
-            id="day-filter-group"
-            role="group"
-            aria-label="Filter by day"
-          ></div>
-        </div>
+        <button
+          type="button"
+          id="more-filters-btn"
+          class="more-filters-btn"
+          aria-expanded="false"
+          aria-controls="more-filters"
+        >
+          <span class="more-filters-btn-label">More Filters</span>
+          <svg
+            class="more-filters-chevron"
+            viewBox="0 0 20 20"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M5 7.5L10 12.5L15 7.5"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
 
-        <div class="controls-row">
-          <span class="controls-label">Band</span>
-          <div
-            class="chip-group"
-            id="band-filter-group"
-            role="group"
-            aria-label="Filter by band"
-          ></div>
+        <div id="more-filters" class="disclosure" inert>
+          <div class="disclosure-inner">
+            <div class="controls-row">
+              <span class="controls-label">Day</span>
+              <div
+                class="chip-group"
+                id="day-filter-group"
+                role="group"
+                aria-label="Filter by day"
+              ></div>
+            </div>
+
+            <div class="controls-row">
+              <span class="controls-label">Band</span>
+              <div
+                class="chip-group"
+                id="band-filter-group"
+                role="group"
+                aria-label="Filter by band"
+              ></div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -205,40 +251,50 @@
               aria-live="polite"
             ></span>
             <button
+              id="reset-filters-btn"
+              class="btn-toggle"
+              type="button"
+              hidden
+            >
+              Reset Filters
+            </button>
+            <button
               id="toggle-nets-btn"
               class="btn-toggle"
               aria-expanded="true"
-              aria-controls="nets-table-wrap"
+              aria-controls="schedule-disclosure"
             >
               Hide Schedule
             </button>
           </div>
         </div>
 
+        <div id="schedule-disclosure" class="disclosure expanded">
+        <div class="disclosure-inner">
         <div id="nets-table-wrap" class="table-wrap">
           <table class="nets-table" id="nets-table">
             <thead>
               <tr>
                 <th scope="col" data-sort="day">
-                  <button class="th-btn">Day</button>
+                  <button class="th-btn">Day<svg class="sort-chevron" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg></button>
                 </th>
                 <th scope="col" data-sort="time">
-                  <button class="th-btn">Time&nbsp;CST</button>
+                  <button class="th-btn">Time&nbsp;CST<svg class="sort-chevron" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg></button>
                 </th>
                 <th scope="col" data-sort="name">
-                  <button class="th-btn">Net</button>
+                  <button class="th-btn">Net<svg class="sort-chevron" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg></button>
                 </th>
                 <th scope="col" data-sort="sponsor">
-                  <button class="th-btn">Sponsor</button>
+                  <button class="th-btn">Sponsor<svg class="sort-chevron" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg></button>
                 </th>
                 <th scope="col" data-sort="frequency">
-                  <button class="th-btn">Freq&nbsp;/&nbsp;Link</button>
+                  <button class="th-btn">Freq&nbsp;/&nbsp;Link<svg class="sort-chevron" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg></button>
                 </th>
                 <th scope="col" data-sort="band">
-                  <button class="th-btn">Band</button>
+                  <button class="th-btn">Band<svg class="sort-chevron" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg></button>
                 </th>
                 <th scope="col" data-sort="location">
-                  <button class="th-btn">Location</button>
+                  <button class="th-btn">Location<svg class="sort-chevron" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg></button>
                 </th>
               </tr>
             </thead>
@@ -247,6 +303,8 @@
           <p id="no-results" class="no-results" aria-live="polite" hidden>
             No nets match your filters.
           </p>
+        </div>
+        </div>
         </div>
       </section>
     </main>

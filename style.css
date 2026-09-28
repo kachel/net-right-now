@@ -254,7 +254,7 @@ button {
 }
 
 .status-clock-label {
-  font-size: 0.68rem;
+  font-size: 0.72rem;
   text-transform: uppercase;
   letter-spacing: 0.12em;
   color: var(--text-3);
@@ -317,13 +317,19 @@ main {
 
 .led.led-live {
   background-color: var(--orange);
-  box-shadow: 0 0 8px 2px var(--orange-glow);
+  box-shadow:
+    inset 0 -1px 1px rgba(255, 255, 255, 0.35),
+    0 0 3px 0 var(--orange),
+    0 0 9px 3px var(--orange-glow);
   animation: pulse-led 1.6s ease-in-out infinite;
 }
 
 .led.led-likely {
   background-color: var(--amber);
-  box-shadow: 0 0 8px 2px var(--amber-glow);
+  box-shadow:
+    inset 0 -1px 1px rgba(255, 255, 255, 0.35),
+    0 0 3px 0 var(--amber),
+    0 0 9px 3px var(--amber-glow);
 }
 
 .led.led-upcoming {
@@ -334,6 +340,22 @@ main {
 @media (prefers-reduced-motion: reduce) {
   .led.led-live {
     animation: none;
+  }
+
+  .more-filters-chevron {
+    transition: none;
+  }
+
+  .sort-chevron {
+    transition: opacity 150ms ease;
+  }
+
+  #nets-tbody {
+    transition: none;
+  }
+
+  .nets-table tbody tr {
+    transition: none;
   }
 }
 
@@ -438,6 +460,30 @@ main {
   font-size: 0.95rem;
 }
 
+.status-error {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.6rem;
+  padding: 1rem;
+  border: 1px solid var(--border-strong);
+  border-radius: 0.35rem;
+}
+
+.status-error-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-1);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.status-error-body {
+  color: var(--text-2);
+  font-size: 0.9rem;
+}
+
 /* ---------------------------------- */
 /* controls panel                      */
 /* ---------------------------------- */
@@ -471,6 +517,51 @@ main {
   letter-spacing: 0.12em;
   color: var(--text-3);
   min-width: 3.5rem;
+}
+
+.more-filters-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  align-self: flex-start;
+  background: transparent;
+  border: none;
+  padding: 0.15rem 0;
+  color: var(--text-2);
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.more-filters-btn:hover {
+  color: var(--orange);
+}
+
+.more-filters-chevron {
+  width: 0.85rem;
+  height: 0.85rem;
+  transition: transform 180ms ease;
+}
+
+.more-filters-btn[aria-expanded="true"] .more-filters-chevron {
+  transform: rotate(180deg);
+}
+
+.disclosure {
+  height: 0;
+  overflow: hidden;
+}
+
+.disclosure.expanded {
+  height: auto;
+}
+
+#more-filters .disclosure-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
 }
 
 .search-field {
@@ -551,6 +642,37 @@ main {
   color: #16130f;
 }
 
+.chip.active:hover {
+  background-color: var(--orange);
+  border-color: var(--orange);
+  color: #16130f;
+}
+
+.favorites-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.fav-toggle-star {
+  width: 0.85rem;
+  height: 0.85rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linejoin: round;
+}
+
+.favorites-toggle-btn[aria-pressed="true"] {
+  border-color: var(--amber);
+  color: var(--text-1);
+}
+
+.favorites-toggle-btn[aria-pressed="true"] .fav-toggle-star {
+  fill: var(--amber);
+  stroke: var(--amber);
+}
+
 /* ---------------------------------- */
 /* schedule / table                    */
 /* ---------------------------------- */
@@ -629,6 +751,10 @@ main {
   min-width: 760px;
 }
 
+#nets-tbody {
+  transition: opacity 120ms ease;
+}
+
 .nets-table thead th {
   position: sticky;
   top: 0;
@@ -665,28 +791,30 @@ main {
   outline-offset: -2px;
 }
 
-.th-btn::after {
-  content: "";
-  width: 0;
-  height: 0;
-  border-left: 4px solid transparent;
-  border-right: 4px solid transparent;
-  opacity: 0.4;
+.sort-chevron {
+  width: 0.7rem;
+  height: 0.7rem;
+  flex-shrink: 0;
+  opacity: 0.35;
+  transform: rotate(0deg);
+  transition:
+    transform 200ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 150ms ease;
 }
 
-th[aria-sort="ascending"] .th-btn::after {
-  border-bottom: 5px solid var(--orange);
+th[aria-sort] .sort-chevron {
   opacity: 1;
+  color: var(--orange);
 }
 
-th[aria-sort="descending"] .th-btn::after {
-  border-top: 5px solid var(--orange);
-  opacity: 1;
+th[aria-sort="ascending"] .sort-chevron {
+  transform: rotate(180deg);
 }
 
 .nets-table tbody tr {
   border-bottom: 1px solid var(--border);
   background-color: var(--bg-1);
+  transition: background-color 120ms ease;
 }
 
 .nets-table tbody tr:nth-child(even) {
@@ -715,6 +843,44 @@ th[aria-sort="descending"] .th-btn::after {
 .nets-table td.cell-name {
   color: var(--text-1);
   font-weight: 600;
+}
+
+.fav-star {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: -3px;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-right: 0.15rem;
+  padding: 0;
+  background: transparent;
+  border: none;
+  color: var(--text-3);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.fav-star svg {
+  width: 1.05rem;
+  height: 1.05rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linejoin: round;
+  transition: fill 120ms ease, stroke 120ms ease;
+}
+
+.fav-star:hover {
+  color: var(--amber);
+}
+
+.fav-star.active {
+  color: var(--amber);
+}
+
+.fav-star.active svg {
+  fill: var(--amber);
 }
 
 .nets-table td.cell-mono {
@@ -846,6 +1012,8 @@ th[aria-sort="descending"] .th-btn::after {
 
   .nets-table td.cell-name {
     order: -1;
+    justify-content: flex-start;
+    align-items: center;
     font-size: 1.05rem;
     padding-top: 0;
     padding-bottom: 0.5rem;
@@ -961,4 +1129,8 @@ footer p + p {
 
 .skip-link:focus {
   top: 1rem;
+}
+
+.skip-link:hover {
+  color: #16130f;
 }
