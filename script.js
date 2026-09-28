@@ -1,10 +1,13 @@
 const DAYS_OF_WEEK = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 const DAY_CHIPS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Daily"];
 const BAND_ORDER = ["10m", "6m", "2m", "1.25m", "70cm", "40m", "80m", "160m"];
+const NON_HAM_BANDS = ["GMRS", "Internet"];
+const CATEGORY_ORDER = ["Amateur Radio", "GMRS", "Internet"];
 
 let allNets = [];
 let netsVisible = true;
 let locationFilter = "all"; // 'chicago', 'chicagoland', or 'all'
+let categoryFilter = "all";
 let dayFilter = "all";
 let bandFilter = "all";
 let searchQuery = "";
@@ -82,6 +85,11 @@ function filterByLocation(nets) {
   return nets;
 }
 
+function filterByCategory(nets) {
+  if (categoryFilter === "all") return nets;
+  return nets.filter((net) => net.Category === categoryFilter);
+}
+
 function filterByDay(nets) {
   if (dayFilter === "all") return nets;
   if (dayFilter === "Daily") return nets.filter((net) => net.Day === "Daily");
@@ -108,6 +116,7 @@ function filterBySearch(nets) {
 function getFilteredNets({ includeSearch = true } = {}) {
   let nets = allNets;
   nets = filterByLocation(nets);
+  nets = filterByCategory(nets);
   nets = filterByDay(nets);
   nets = filterByBand(nets);
   if (includeSearch) nets = filterBySearch(nets);
@@ -391,10 +400,20 @@ function buildChipGroup(container, values, current, onSelect) {
 function getUniqueBands() {
   const found = new Set();
   allNets.forEach((net) => {
-    if (net.Band) found.add(net.Band);
+    if (net.Band && !NON_HAM_BANDS.includes(net.Band)) found.add(net.Band);
   });
   const ordered = BAND_ORDER.filter((b) => found.has(b));
   const extras = [...found].filter((b) => !BAND_ORDER.includes(b)).sort();
+  return [...ordered, ...extras];
+}
+
+function getUniqueCategories() {
+  const found = new Set();
+  allNets.forEach((net) => {
+    if (net.Category) found.add(net.Category);
+  });
+  const ordered = CATEGORY_ORDER.filter((c) => found.has(c));
+  const extras = [...found].filter((c) => !CATEGORY_ORDER.includes(c)).sort();
   return [...ordered, ...extras];
 }
 
@@ -405,6 +424,7 @@ function getUniqueBands() {
 function loadStateFromURL() {
   const params = new URLSearchParams(window.location.search);
   if (params.has("loc")) locationFilter = params.get("loc");
+  if (params.has("cat")) categoryFilter = params.get("cat");
   if (params.has("day")) dayFilter = params.get("day");
   if (params.has("band")) bandFilter = params.get("band");
   if (params.has("q")) searchQuery = params.get("q");
@@ -415,6 +435,7 @@ function loadStateFromURL() {
 function syncStateToURL() {
   const params = new URLSearchParams();
   if (locationFilter !== "all") params.set("loc", locationFilter);
+  if (categoryFilter !== "all") params.set("cat", categoryFilter);
   if (dayFilter !== "all") params.set("day", dayFilter);
   if (bandFilter !== "all") params.set("band", bandFilter);
   if (searchQuery) params.set("q", searchQuery);
@@ -493,6 +514,17 @@ async function init() {
       syncStateToURL();
     });
   });
+
+  // Category chips
+  buildChipGroup(
+    document.getElementById("category-filter-group"),
+    getUniqueCategories(),
+    () => categoryFilter,
+    (value) => {
+      categoryFilter = value;
+      renderTable();
+    },
+  );
 
   // Day chips
   buildChipGroup(
