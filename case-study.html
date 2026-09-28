@@ -1,0 +1,200 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chicago Ham Zone — Case Study</title>
+    <meta
+      name="description"
+      content="A case study on redesigning Chicago Ham Zone: expanded data coverage, a rebuilt filter and sort system, real bugs found and fixed, and a visual identity built for the subject matter."
+    />
+    <meta name="theme-color" content="#121316" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="case-study.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Audiowide&family=Barlow+Condensed:wght@500;600;700;800&family=Barlow:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body class="case-study-body">
+    <div class="hazard-strip" aria-hidden="true"></div>
+
+    <header class="cs-header">
+      <div class="cs-header-inner">
+        <a class="cs-back-link" href="index.html">&larr; Chicago Ham Zone</a>
+        <h1 class="cs-title">Redesigning Chicago Ham Zone</h1>
+        <p class="cs-lede">
+          Chicago Ham Zone informs amateur radio operators whether a net is on
+          the air. This case study covers a full redesign of the site. I more
+          than doubled the tracked nets, added two new categories of nets, and
+          rebuilt the filter and sort system.
+        </p>
+        <div class="cs-stat-row">
+          <div class="cs-stat">
+            <span class="cs-stat-value">108&nbsp;&rarr;&nbsp;245</span>
+            <span class="cs-stat-label">nets tracked</span>
+          </div>
+          <div class="cs-stat">
+            <span class="cs-stat-value">1&nbsp;&rarr;&nbsp;3</span>
+            <span class="cs-stat-label">net categories</span>
+          </div>
+          <div class="cs-stat">
+            <span class="cs-stat-value">1&nbsp;&rarr;&nbsp;3</span>
+            <span class="cs-stat-label">types of filters</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="cs-main">
+      <!-- ===================== DESKTOP COMPARISON ===================== -->
+      <section class="cs-section" aria-labelledby="desktop-compare-heading">
+        <h2 id="desktop-compare-heading" class="cs-section-title">
+          Desktop, side by side
+        </h2>
+        <p class="cs-section-body">
+          The original site was passable. It had a full-width gradient hero, an
+          upcoming card, and all of the nets as unfilterable cards. There were
+          three filters: all, Chicagoland, and Chicago. The redesign kept the
+          core gray and orange color palette, along with the Audiowide and
+          Barlow type faces. As for the new stuff, I changed the cards to be
+          sortable, filterable, and replaced the list of cards with a zebra
+          striped table for better readability. I added two new filterable
+          categories including: day and band frequency.
+        </p>
+        <p class="cs-section-body">
+          I added a favorite option for people to save their favorite nets (as
+          local storage no need to complicate things). This add a small layer of
+          customization for each user. Lastly, if a net is currently happening
+          in addition to showing up on the top of the page as a card, it is also
+          highlighted on the net table.
+        </p>
+
+        <div
+          class="compare-slider"
+          data-compare-slider
+          role="slider"
+          aria-label="Before and after comparison, desktop"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          aria-valuenow="50"
+          tabindex="0"
+        >
+          <img
+            class="compare-img compare-img-before"
+            src="case-study-assets/before-desktop.png"
+            alt="Original Chicago Ham Zone desktop layout: centered orange gradient hero, unlabeled key-value net cards"
+          />
+          <img
+            class="compare-img compare-img-after"
+            src="case-study-assets/after-desktop.png"
+            alt="Current Chicago Ham Zone desktop layout: industrial gray-and-orange theme with a sortable, filterable schedule table"
+          />
+          <div class="compare-handle" aria-hidden="true">
+            <svg viewBox="0 0 20 20" fill="none">
+              <path
+                d="M7 5L3 10L7 15M13 5L17 10L13 15"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+          <span class="compare-tag compare-tag-before">Before</span>
+          <span class="compare-tag compare-tag-after">After</span>
+        </div>
+      </section>
+
+      <!-- ===================== MOBILE COMPARISON ===================== -->
+      <section class="cs-section" aria-labelledby="mobile-compare-heading">
+        <h2 id="mobile-compare-heading" class="cs-section-title">
+          Mobile, side by side
+        </h2>
+        <p class="cs-section-body">
+          The original site was responsive but mostly because it was so simple.
+          For the redesign, I opted for the nets to show up as stacked cards
+          with a label on every field, so the data stays legible on a phone. The
+          table view with horizontal scrolling was not a good way to view
+          information. The filters are toggleable for visibility saving valuable
+          space for the mobile view.
+        </p>
+
+        <div
+          class="compare-slider compare-slider-mobile"
+          data-compare-slider
+          role="slider"
+          aria-label="Before and after comparison, mobile"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          aria-valuenow="50"
+          tabindex="0"
+        >
+          <img
+            class="compare-img compare-img-before"
+            src="case-study-assets/before-mobile.png"
+            alt="Original Chicago Ham Zone mobile layout: wrapped title, full-width unlabeled net cards"
+          />
+          <img
+            class="compare-img compare-img-after"
+            src="case-study-assets/after-mobile.png"
+            alt="Current Chicago Ham Zone mobile layout: compact hero, filter chips, and labeled stacked cards"
+          />
+          <div class="compare-handle" aria-hidden="true">
+            <svg viewBox="0 0 20 20" fill="none">
+              <path
+                d="M7 5L3 10L7 15M13 5L17 10L13 15"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+          <span class="compare-tag compare-tag-before">Before</span>
+          <span class="compare-tag compare-tag-after">After</span>
+        </div>
+      </section>
+
+      <!-- ===================== THE DATA PROBLEM ===================== -->
+      <section class="cs-section" aria-labelledby="data-heading">
+        <h2 id="data-heading" class="cs-section-title">The data problem</h2>
+        <p class="cs-section-body">
+          The redesign expands coverage to 245 nets across three categories
+          (Amateur Radio, GMRS, and Internet-based).
+        </p>
+        <p class="cs-section-body">
+          The redesign also includes a scheduled GitHub Action to pull
+          information from the spreadsheet. Making sure the data stays fresh.
+        </p>
+      </section>
+
+      <section class="cs-section" aria-labelledby="conclusion">
+        <h2 id="conclusion" class="cs-section-title">Conclusion</h2>
+        <p class="cs-section-body">
+          The redesign makes this website not only useable by a broader user
+          base but also lets folks save what nets they enjoy. Better filtering
+          means that they can precisely see when nets are happening. All in the
+          hopes this tool will help more people get involved in their local
+          nets.
+        </p>
+      </section>
+    </main>
+
+    <footer class="cs-footer">
+      <p>
+        <a href="index.html">See the live site &rarr;</a>
+      </p>
+      <p class="cs-footer-note">
+        Built with a lil AI. Code and commit history on
+        <a href="https://github.com/kachel/net-right-now">GitHub</a>.
+      </p>
+    </footer>
+
+    <script src="case-study.js"></script>
+  </body>
+</html>
