@@ -128,7 +128,7 @@ function getFilteredNets({ includeSearch = true } = {}) {
 /* ---------------------------------- */
 
 function getNextNetGroups() {
-  const nets = filterByLocation(allNets);
+  const nets = getFilteredNets();
   const cstTime = getCSTTime();
   const today = cstTime.getDay();
   const currentMinutes = cstTime.getHours() * 60 + cstTime.getMinutes();
@@ -306,11 +306,21 @@ function renderTableHeaderSortState() {
   });
 }
 
+const URL_PREFIX_RE = /^https?:\/\//i;
+
+function toHref(url) {
+  return URL_PREFIX_RE.test(url) ? url : `https://${url}`;
+}
+
+function renderLink(href, label) {
+  return `<a href="${esc(toHref(href))}" target="_blank" rel="noopener">${esc(label)}</a>`;
+}
+
 function linkCell(text) {
   const value = String(text ?? "").trim();
   if (!value) return "";
-  if (/^https?:\/\//i.test(value)) {
-    return `<a href="${esc(value)}" target="_blank" rel="noopener">${esc(value.replace(/^https?:\/\//i, ""))}</a>`;
+  if (URL_PREFIX_RE.test(value)) {
+    return renderLink(value, value.replace(URL_PREFIX_RE, ""));
   }
   return esc(value);
 }
@@ -319,10 +329,7 @@ function sponsorCell(net) {
   const sponsor = String(net.Sponsor ?? "").trim();
   const website = String(net.Website ?? "").trim();
   const label = sponsor || website || "—";
-  if (website) {
-    const href = /^https?:\/\//i.test(website) ? website : `https://${website}`;
-    return `<a href="${esc(href)}" target="_blank" rel="noopener">${esc(label)}</a>`;
-  }
+  if (website) return renderLink(website, label);
   return linkCell(sponsor) || esc(label);
 }
 
@@ -337,11 +344,28 @@ function connectionCell(net) {
   return `<span class="cell-connect" title="${esc(full)}">${esc(summary)}</span>`;
 }
 
+function anyFilterActive() {
+  return (
+    locationFilter !== "all" ||
+    categoryFilter !== "all" ||
+    dayFilter !== "all" ||
+    bandFilter !== "all" ||
+    searchQuery !== ""
+  );
+}
+
+function updateResetFiltersVisibility() {
+  const resetBtn = document.getElementById("reset-filters-btn");
+  if (resetBtn) resetBtn.hidden = !anyFilterActive();
+}
+
 function renderTable() {
   const tbody = document.getElementById("nets-tbody");
   const noResults = document.getElementById("no-results");
   const resultCount = document.getElementById("result-count");
   if (!tbody) return;
+
+  updateResetFiltersVisibility();
 
   let nets = getFilteredNets();
   nets = sortNets(nets);
@@ -500,73 +524,114 @@ function refreshAll() {
   renderTable();
 }
 
-async function init() {
+function renderLoadError() {
+  const container = document.getElementById("next-net");
+  if (!container) return;
+  container.innerHTML = `
+<div class="status-error">
+  <div class="status-error-title">Couldn't load the schedule</div>
+  <p class="status-error-body">The net list didn't come through — check your connection and try again.</p>
+  <button type="button" class="btn-toggle" id="retry-load-btn">Try again</button>
+</div>`;
+  document.getElementById("retry-load-btn")?.addEventListener("click", () => {
+    container.innerHTML = "";
+    attemptLoad();
+  });
+}
+
+async function loadNets() {
+  const res = await fetch("./chicago-area-nets.json");
+  if (!res.ok) throw new Error(res.statusText);
+  allNets = await res.json();
+}
+
+async function attemptLoad() {
+  try {
+    await loadNets();
+  } catch (err) {
+    renderLoadError();
+    return;
+  }
+  initUI();
+}
+
+function init() {
   displayCSTTime();
   setInterval(displayCSTTime, 1000);
   setInterval(refreshAll, 60000);
+  attemptLoad();
+}
 
-  try {
-    const res = await fetch("./chicago-area-nets.json");
-    if (!res.ok) throw new Error(res.statusText);
-    allNets = await res.json();
-  } catch (err) {
-    const errEl = document.getElementById("next-net") || document.body;
-    errEl.textContent = "Error loading nets: " + err.message;
-    return;
-  }
-
+function initUI() {
   loadStateFromURL();
+
+  // More filters disclosure (Day/Band)
+  const moreFiltersBtn = document.getElementById("more-filters-btn");
+  const moreFiltersPanel = document.getElementById("more-filters");
+  const setMoreFiltersExpanded = (expanded) => {
+    if (!moreFiltersBtn || !moreFiltersPanel) return;
+    moreFiltersBtn.setAttribute("aria-expanded", String(expanded));
+    moreFiltersPanel.hidden = !expanded;
+    moreFiltersBtn.querySelector(".more-filters-btn-label").textContent = expanded
+      ? "Fewer Filters"
+      : "More Filters";
+  };
+  if (moreFiltersBtn) {
+    moreFiltersBtn.addEventListener("click", () => {
+      setMoreFiltersExpanded(moreFiltersBtn.getAttribute("aria-expanded") !== "true");
+    });
+  }
+  if (dayFilter !== "all" || bandFilter !== "all") setMoreFiltersExpanded(true);
 
   // Location chips
   const filterBtns = document.querySelectorAll(".location-filter-btn");
+  const updateLocationChips = () => {
+    filterBtns.forEach((b) => {
+      const isActive = b.dataset.filter === locationFilter;
+      b.classList.toggle("active", isActive);
+      b.setAttribute("aria-pressed", String(isActive));
+    });
+  };
+  updateLocationChips();
   filterBtns.forEach((btn) => {
-    const isActive = btn.dataset.filter === locationFilter;
-    btn.classList.toggle("active", isActive);
-    btn.setAttribute("aria-pressed", String(isActive));
-
     btn.addEventListener("click", () => {
       locationFilter = btn.dataset.filter;
-      filterBtns.forEach((b) => {
-        b.classList.remove("active");
-        b.setAttribute("aria-pressed", "false");
-      });
-      btn.classList.add("active");
-      btn.setAttribute("aria-pressed", "true");
+      updateLocationChips();
       refreshAll();
       syncStateToURL();
     });
   });
 
   // Category chips
-  buildChipGroup(
+  const updateCategoryChips = buildChipGroup(
     document.getElementById("category-filter-group"),
     getUniqueCategories(),
     () => categoryFilter,
     (value) => {
       categoryFilter = value;
-      renderTable();
+      refreshAll();
     },
   );
 
   // Day chips
-  buildChipGroup(
+  const updateDayChips = buildChipGroup(
     document.getElementById("day-filter-group"),
     DAY_CHIPS,
     () => dayFilter,
     (value) => {
       dayFilter = value;
-      renderTable();
+      refreshAll();
     },
   );
 
   // Band chips
-  buildChipGroup(
+  const updateBandChips = buildChipGroup(
     document.getElementById("band-filter-group"),
     getUniqueBands(),
     () => bandFilter,
     (value) => {
       bandFilter = value;
-      renderTable();
+      refreshAll();
     },
   );
 
@@ -576,10 +641,30 @@ async function init() {
     searchInput.value = searchQuery;
     const debouncedSearch = debounce(() => {
       searchQuery = searchInput.value.trim();
-      renderTable();
+      refreshAll();
       syncStateToURL();
     }, 150);
     searchInput.addEventListener("input", debouncedSearch);
+  }
+
+  // Reset filters
+  const resetBtn = document.getElementById("reset-filters-btn");
+  if (resetBtn) {
+    resetBtn.addEventListener("click", () => {
+      locationFilter = "all";
+      categoryFilter = "all";
+      dayFilter = "all";
+      bandFilter = "all";
+      searchQuery = "";
+      if (searchInput) searchInput.value = "";
+      updateLocationChips();
+      updateCategoryChips();
+      updateDayChips();
+      updateBandChips();
+      refreshAll();
+      syncStateToURL();
+      resetBtn.blur();
+    });
   }
 
   // Sortable headers

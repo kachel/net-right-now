@@ -174,24 +174,50 @@
           ></div>
         </div>
 
-        <div class="controls-row">
-          <span class="controls-label">Day</span>
-          <div
-            class="chip-group"
-            id="day-filter-group"
-            role="group"
-            aria-label="Filter by day"
-          ></div>
-        </div>
+        <button
+          type="button"
+          id="more-filters-btn"
+          class="more-filters-btn"
+          aria-expanded="false"
+          aria-controls="more-filters"
+        >
+          <span class="more-filters-btn-label">More Filters</span>
+          <svg
+            class="more-filters-chevron"
+            viewBox="0 0 20 20"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M5 7.5L10 12.5L15 7.5"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
 
-        <div class="controls-row">
-          <span class="controls-label">Band</span>
-          <div
-            class="chip-group"
-            id="band-filter-group"
-            role="group"
-            aria-label="Filter by band"
-          ></div>
+        <div id="more-filters" hidden>
+          <div class="controls-row">
+            <span class="controls-label">Day</span>
+            <div
+              class="chip-group"
+              id="day-filter-group"
+              role="group"
+              aria-label="Filter by day"
+            ></div>
+          </div>
+
+          <div class="controls-row">
+            <span class="controls-label">Band</span>
+            <div
+              class="chip-group"
+              id="band-filter-group"
+              role="group"
+              aria-label="Filter by band"
+            ></div>
+          </div>
         </div>
       </section>
 
@@ -204,6 +230,14 @@
               id="result-count"
               aria-live="polite"
             ></span>
+            <button
+              id="reset-filters-btn"
+              class="btn-toggle"
+              type="button"
+              hidden
+            >
+              Reset Filters
+            </button>
             <button
               id="toggle-nets-btn"
               class="btn-toggle"
