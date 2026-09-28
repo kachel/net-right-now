@@ -178,7 +178,7 @@ function getFilteredNets({ includeSearch = true } = {}) {
 /* ---------------------------------- */
 
 function getNextNetGroups() {
-  const nets = getFilteredNets();
+  const nets = getFilteredNets().filter((net) => net.Category !== "Internet");
   const cstTime = getCSTTime();
   const today = cstTime.getDay();
   const currentMinutes = cstTime.getHours() * 60 + cstTime.getMinutes();
