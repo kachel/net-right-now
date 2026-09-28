@@ -86,7 +86,7 @@ h6 {
   /* text */
   --text-1: #edeae4;
   --text-2: #aeb2b8;
-  --text-3: #787d85;
+  --text-3: #9aa0a8;
 
   /* accents */
   --orange: #ff6a1a;
@@ -115,6 +115,7 @@ h6 {
 
 html {
   background-color: var(--bg-0);
+  color-scheme: dark;
 }
 
 body {
@@ -828,4 +829,35 @@ footer p + p {
 :focus-visible {
   outline: 2px solid var(--orange);
   outline-offset: 2px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  z-index: 100;
+  background-color: var(--orange);
+  color: #16130f;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 0.6rem 1rem;
+  border-radius: 0.3rem;
+  transition: top 150ms ease;
+}
+
+.skip-link:focus {
+  top: 1rem;
 }

@@ -4,6 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Chicago Ham Zone</title>
     <meta name="description" content="Live status board for Chicagoland amateur radio nets — see what's on the air right now." />
+    <meta name="theme-color" content="#121316" />
     <link rel="stylesheet" href="style.css" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -15,6 +16,7 @@
   </head>
 
   <body>
+    <a class="skip-link" href="#main-content">Skip to schedule</a>
     <div class="hazard-strip" aria-hidden="true"></div>
 
     <header class="site-header">
@@ -53,7 +55,8 @@
       </div>
     </header>
 
-    <main>
+    <main id="main-content">
+      <h2 class="sr-only">Live Net Status</h2>
       <section id="next-net" class="status-panel" aria-live="polite"></section>
 
       <section class="controls-panel" aria-label="Filter nets">
@@ -73,9 +76,9 @@
           </div>
 
           <div class="location-filter-container" role="group" aria-label="Filter by location">
-            <button class="chip location-filter-btn" data-filter="all">All Areas</button>
-            <button class="chip location-filter-btn" data-filter="chicago">Chicago</button>
-            <button class="chip location-filter-btn" data-filter="chicagoland">Chicagoland</button>
+            <button class="chip location-filter-btn" data-filter="all" aria-pressed="true">All Areas</button>
+            <button class="chip location-filter-btn" data-filter="chicago" aria-pressed="false">Chicago</button>
+            <button class="chip location-filter-btn" data-filter="chicagoland" aria-pressed="false">Chicagoland</button>
           </div>
         </div>
 
@@ -94,8 +97,8 @@
         <div class="schedule-header">
           <h2 class="title schedule-title">Full Schedule</h2>
           <div class="schedule-header-actions">
-            <span class="result-count" id="result-count"></span>
-            <button id="toggle-nets-btn" class="btn-toggle" aria-pressed="true" aria-expanded="true" aria-controls="nets-table-wrap">
+            <span class="result-count" id="result-count" aria-live="polite"></span>
+            <button id="toggle-nets-btn" class="btn-toggle" aria-expanded="true" aria-controls="nets-table-wrap">
               Hide Schedule
             </button>
           </div>
@@ -116,7 +119,7 @@
             </thead>
             <tbody id="nets-tbody"></tbody>
           </table>
-          <p id="no-results" class="no-results" hidden>No nets match your filters.</p>
+          <p id="no-results" class="no-results" aria-live="polite" hidden>No nets match your filters.</p>
         </div>
       </section>
     </main>

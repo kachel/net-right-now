@@ -370,7 +370,9 @@ function buildChipGroup(container, values, current, onSelect) {
 
   const updateActive = () => {
     container.querySelectorAll(".chip").forEach((btn) => {
-      btn.classList.toggle("active", btn.dataset.value === current());
+      const isActive = btn.dataset.value === current();
+      btn.classList.toggle("active", isActive);
+      btn.setAttribute("aria-pressed", String(isActive));
     });
   };
 
@@ -378,6 +380,7 @@ function buildChipGroup(container, values, current, onSelect) {
     btn.addEventListener("click", () => {
       onSelect(btn.dataset.value);
       updateActive();
+      syncStateToURL();
     });
   });
 
@@ -393,6 +396,43 @@ function getUniqueBands() {
   const ordered = BAND_ORDER.filter((b) => found.has(b));
   const extras = [...found].filter((b) => !BAND_ORDER.includes(b)).sort();
   return [...ordered, ...extras];
+}
+
+/* ---------------------------------- */
+/* URL state sync                      */
+/* ---------------------------------- */
+
+function loadStateFromURL() {
+  const params = new URLSearchParams(window.location.search);
+  if (params.has("loc")) locationFilter = params.get("loc");
+  if (params.has("day")) dayFilter = params.get("day");
+  if (params.has("band")) bandFilter = params.get("band");
+  if (params.has("q")) searchQuery = params.get("q");
+  if (params.has("sort")) sortKey = params.get("sort");
+  if (params.has("dir")) sortDir = params.get("dir") === "desc" ? "desc" : "asc";
+}
+
+function syncStateToURL() {
+  const params = new URLSearchParams();
+  if (locationFilter !== "all") params.set("loc", locationFilter);
+  if (dayFilter !== "all") params.set("day", dayFilter);
+  if (bandFilter !== "all") params.set("band", bandFilter);
+  if (searchQuery) params.set("q", searchQuery);
+  if (sortKey) {
+    params.set("sort", sortKey);
+    params.set("dir", sortDir);
+  }
+  const query = params.toString();
+  const newUrl = query ? `${window.location.pathname}?${query}` : window.location.pathname;
+  window.history.replaceState(null, "", newUrl);
+}
+
+function debounce(fn, delay) {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => fn(...args), delay);
+  };
 }
 
 /* ---------------------------------- */
@@ -432,17 +472,27 @@ async function init() {
     return;
   }
 
+  loadStateFromURL();
+
   // Location chips
   const filterBtns = document.querySelectorAll(".location-filter-btn");
   filterBtns.forEach((btn) => {
+    const isActive = btn.dataset.filter === locationFilter;
+    btn.classList.toggle("active", isActive);
+    btn.setAttribute("aria-pressed", String(isActive));
+
     btn.addEventListener("click", () => {
       locationFilter = btn.dataset.filter;
-      filterBtns.forEach((b) => b.classList.remove("active"));
+      filterBtns.forEach((b) => {
+        b.classList.remove("active");
+        b.setAttribute("aria-pressed", "false");
+      });
       btn.classList.add("active");
+      btn.setAttribute("aria-pressed", "true");
       refreshAll();
+      syncStateToURL();
     });
   });
-  document.querySelector('[data-filter="all"]')?.classList.add("active");
 
   // Day chips
   buildChipGroup(
@@ -469,10 +519,13 @@ async function init() {
   // Search
   const searchInput = document.getElementById("search-input");
   if (searchInput) {
-    searchInput.addEventListener("input", () => {
+    searchInput.value = searchQuery;
+    const debouncedSearch = debounce(() => {
       searchQuery = searchInput.value.trim();
       renderTable();
-    });
+      syncStateToURL();
+    }, 150);
+    searchInput.addEventListener("input", debouncedSearch);
   }
 
   // Sortable headers
@@ -486,6 +539,7 @@ async function init() {
         sortDir = "asc";
       }
       renderTable();
+      syncStateToURL();
     });
   });
 
