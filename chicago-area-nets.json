@@ -340,7 +340,7 @@
     "Internet Link": "",
     "Mode": "FM",
     "Band": "80m",
-    "Website": "",
+    "Website": "http://www.w9vt.org",
     "Last Checked": "",
     "Notes": "Net Control: Jim KB9VR"
   },
@@ -414,7 +414,7 @@
     "Internet Link": "",
     "Mode": "Digital",
     "Band": "2m",
-    "Website": "",
+    "Website": "http://www.w9rh.org",
     "Last Checked": ""
   },
   {
@@ -558,7 +558,7 @@
     "Internet Link": "AS: 555490",
     "Mode": "FM, Internet",
     "Band": "1.25m",
-    "Website": "",
+    "Website": "http://chicagofmclub.org/",
     "Last Checked": "",
     "Notes": "-offset, Input 222.5000"
   },
@@ -706,7 +706,7 @@
     "Internet Link": "",
     "Mode": "FM",
     "Band": "80m",
-    "Website": "",
+    "Website": "https://www.aresd1.net",
     "Last Checked": "",
     "Notes": "Starting on Olivia 8/2K"
   },
@@ -869,7 +869,7 @@
     "Internet Link": "EL: WA9ORC-R \r\nAS: 555492",
     "Mode": "FM, Internet",
     "Band": "70cm",
-    "Website": "",
+    "Website": "http://chicagofmclub.org/",
     "Last Checked": "6/21/26",
     "Notes": "chicagofmclub.org Designed for female hams seeking skill-building knowledge, service opportunities, and a space to connect with other licensed female amateur radio enthusiasts."
   },
@@ -1142,7 +1142,7 @@
     "Internet Link": "AS: 555492",
     "Mode": "FM, Internet",
     "Band": "70cm",
-    "Website": "",
+    "Website": "http://chicagofmclub.org/",
     "Last Checked": "7/27/25"
   },
   {
@@ -1741,7 +1741,7 @@
     "Internet Link": "",
     "Mode": "FM",
     "Band": "2m",
-    "Website": "",
+    "Website": "https://rockfordara.org/",
     "Last Checked": ""
   },
   {
@@ -1832,7 +1832,7 @@
     "Internet Link": "EL: K9IIK-R AS:27833",
     "Mode": "FM, Internet",
     "Band": "2m",
-    "Website": "",
+    "Website": "https://www.n9rjv.org/",
     "Last Checked": "7/29/25"
   },
   {
@@ -1922,7 +1922,7 @@
     "Internet Link": "",
     "Mode": "FM",
     "Band": "6m",
-    "Website": "",
+    "Website": "https://www.k9ona.com/",
     "Last Checked": "6/23/26"
   },
   {
@@ -2374,7 +2374,7 @@
     "Internet Link": "",
     "Mode": "FM",
     "Band": "1.25m",
-    "Website": "",
+    "Website": "http://www.frrl.org",
     "Last Checked": "11/15/25"
   },
   {
@@ -2501,7 +2501,7 @@
     "Internet Link": "",
     "Mode": "FM",
     "Band": "2m",
-    "Website": "",
+    "Website": "http://pc-arc.net/",
     "Last Checked": ""
   },
   {
@@ -2809,7 +2809,7 @@
     "Internet Link": "EL: W9DUP-R",
     "Mode": "FM, Internet",
     "Band": "2m",
-    "Website": "",
+    "Website": "http://www.w9dup.org",
     "Last Checked": ""
   },
   {
@@ -3043,7 +3043,7 @@
     "Internet Link": "",
     "Mode": "FM",
     "Band": "10m",
-    "Website": "",
+    "Website": "http://www.w9vt.org",
     "Last Checked": ""
   },
   {
@@ -3388,7 +3388,7 @@
     "Internet Link": "",
     "Mode": "FM",
     "Band": "2m",
-    "Website": "",
+    "Website": "https://rockfordara.org/",
     "Last Checked": "2/3/26",
     "Notes": "We now have a 'Fun Net Hotline' you can call to check-in on the net (or just to say hello to your favorite NCS). It is: 815-232-FNFN (or 815-232-3636). Call from anywhere in the world to add-up the numbers for the net!"
   },
@@ -4010,7 +4010,7 @@
     "Internet Link": "DMR: TGIF TG 65535 (WCARS)\nYSF: 65535 (US WCARS YSF)\nASL node 630121\nEcholink \"N9HXR-R\" 320720",
     "Mode": "Internet",
     "Band": "Internet",
-    "Website": "",
+    "Website": "https://wcars.radio/",
     "Last Checked": ""
   },
   {
