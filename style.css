@@ -741,6 +741,21 @@ th[aria-sort="descending"] .th-btn::after {
   white-space: nowrap;
 }
 
+.cell-connect {
+  display: inline-block;
+  max-width: 22ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: bottom;
+  cursor: help;
+  border-bottom: 1px dashed var(--border-strong);
+}
+
+.cell-muted {
+  color: var(--text-3);
+}
+
 .band-tag {
   display: inline-block;
   font-family: var(--font-mono);

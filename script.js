@@ -315,6 +315,28 @@ function linkCell(text) {
   return esc(value);
 }
 
+function sponsorCell(net) {
+  const sponsor = String(net.Sponsor ?? "").trim();
+  const website = String(net.Website ?? "").trim();
+  const label = sponsor || website || "—";
+  if (website) {
+    const href = /^https?:\/\//i.test(website) ? website : `https://${website}`;
+    return `<a href="${esc(href)}" target="_blank" rel="noopener">${esc(label)}</a>`;
+  }
+  return linkCell(sponsor) || esc(label);
+}
+
+function connectionCell(net) {
+  const freq = String(net.Frequency ?? "").trim();
+  if (freq) return esc(freq);
+  const link = String(net["Internet Link"] ?? "").trim();
+  if (!link) return '<span class="cell-muted">—</span>';
+  const lines = link.split(/\r?\n/).filter(Boolean);
+  const summary = lines[0] + (lines.length > 1 ? " …" : "");
+  const full = lines.join(" · ");
+  return `<span class="cell-connect" title="${esc(full)}">${esc(summary)}</span>`;
+}
+
 function renderTable() {
   const tbody = document.getElementById("nets-tbody");
   const noResults = document.getElementById("no-results");
@@ -343,8 +365,8 @@ function renderTable() {
   <td>${esc(net.Day || "")}</td>
   <td class="cell-mono">${esc(net["Time CST"] || "")}</td>
   <td class="cell-name">${esc(net["Name Of Net"] || "")}</td>
-  <td>${linkCell(net.Sponsor) || esc(net.Sponsor || "")}</td>
-  <td class="cell-mono">${esc(net.Frequency || "")}</td>
+  <td>${sponsorCell(net)}</td>
+  <td class="cell-mono">${connectionCell(net)}</td>
   <td>${net.Band ? `<span class="band-tag">${esc(net.Band)}</span>` : ""}</td>
   <td>${esc(net.Location || "")}</td>
 </tr>`;
